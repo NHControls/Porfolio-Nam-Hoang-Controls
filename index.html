@@ -3,515 +3,1015 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BMS Master Estimator v2.3.1 - Nam Hoàng Controls</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <script src="https://cdn.sheetjs.com/xlsx-0.19.3/package/dist/xlsx.full.min.js"></script>
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        nhc: {
-                            navy: '#0f172a',    // Deep Navy (Brand Base)
-                            blue: '#1e40af',    // Brand Blue
-                            gold: '#f59e0b',    // Gold (Action/Highlight)
-                            teal: '#14b8a6',    // Teal (Secondary)
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'system-ui', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                    boxShadow: {
-                        'slim': '0 2px 10px rgba(0,0,0,0.1)',
-                    }
-                }
-            }
-        }
-    </script>
+    <title>Nam Hoàng Controls - Giải Pháp BMS và T&C Chuyên Nghiệp</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
-        
+        /* --- 1. RESET & VARIABLES --- */
         :root {
-            --teal: #14b8a6;
-            --navy: #0f172a;
-            --yellow: #f59e0b;
+            /* Updated Color Palette */
+            --navy: #284363;        /* Navy đậm hơn */
+            --navy-dark: #1a2e45;   /* Darker shade for contrast */
+            --teal: #469CA6;        /* Teal mới */
+            --teal-light: #e0f5f7;  /* Light teal background */
+            --yellow: #E5A417;      /* Màu điểm nhấn mới */
+            
+            --white: #ffffff;
+            --gray-light: #f8fafc;
+            --gray-border: #e2e8f0;
+            --text-dark: #334155;
+            --text-light: #64748b;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
-
-        /* Compact Scrollbar */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
         
-        /* Input Reset */
-        input[type=number]::-webkit-inner-spin-button, 
-        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-        
-        /* Custom Header Input */
-        .header-project-input {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            transition: all 0.2s;
-        }
-        .header-project-input:focus {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: #f59e0b;
-            outline: none;
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--white);
+            overflow-x: hidden;
         }
 
-        /* Logo Bar Animation & Style */
+        h1, h2, h3, h4, h5 { font-family: 'Montserrat', sans-serif; line-height: 1.2; }
+        a { text-decoration: none; transition: all 0.3s ease; }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; display: block; object-fit: cover; }
+
+        /* --- 2. UTILITY CLASSES --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding { padding: 80px 0; }
+        .bg-light { background-color: var(--gray-light); }
+        .bg-navy { background-color: var(--navy-dark); color: var(--white); }
+        
+        .text-center { text-align: center; }
+        .text-navy { color: var(--navy); }
+        .text-teal { color: var(--teal); }
+        .text-yellow { color: var(--yellow); }
+        .text-white { color: var(--white); }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 4px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--navy);
+            color: var(--white);
+        }
+        .btn-primary:hover {
+            background-color: var(--teal);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--white);
+            color: var(--white);
+            background: transparent;
+        }
+        .btn-outline:hover {
+            background: var(--white);
+            color: var(--navy);
+        }
+
+        .section-header { margin-bottom: 60px; text-align: center; }
+        .section-header h2 {
+            font-size: 36px;
+            color: var(--navy);
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        .section-header.light h2 { color: var(--white); }
+        
+        .section-header h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--yellow);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+        .section-header p { color: var(--text-light); max-width: 700px; margin: 0 auto; font-size: 18px; }
+        .section-header.light p { color: #cbd5e1; }
+
+        /* --- 3. NAVIGATION & LOGO --- */
+        header {
+            background: var(--white);
+            box-shadow: var(--shadow-sm);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+        .nav-wrapper { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        
+        /* LOGO STYLES (UPDATED) */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
         .logo-bars {
             display: flex;
             align-items: flex-end;
-            gap: 2px;
-            padding-bottom: 2px;
+            gap: 4px; /* Khoảng cách giữa các thanh */
         }
-        .bar {
-            width: 6px;
-            border-radius: 2px;
-            transition: height 0.3s ease;
+        .bar { width: 8px; border-radius: 1px; }
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .logo-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 20px;
+            color: var(--navy); /* Màu Navy */
+            line-height: 1;
+            letter-spacing: -0.5px;
+        }
+        .logo-subtitle {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 600;
+            font-size: 11px;
+            color: #64748b; /* Màu xám slate */
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 2px;
+        }
+        
+        .nav-menu { display: flex; gap: 30px; }
+        .nav-menu a {
+            font-weight: 600;
+            color: var(--navy);
+            font-size: 15px;
+            text-transform: uppercase;
+            position: relative;
+        }
+        .nav-menu a:hover, .nav-menu a.active { color: var(--teal); }
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0; height: 2px;
+            bottom: -5px; left: 0;
+            background: var(--yellow);
+            transition: width 0.3s;
+        }
+        .nav-menu a:hover::after { width: 100%; }
+        .mobile-toggle { display: none; font-size: 24px; color: var(--navy); cursor: pointer; }
+
+        /* --- 4. HERO SECTION --- */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(40, 67, 99, 0.9), rgba(26, 46, 69, 0.8)),
+                        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            padding-top: 80px;
+        }
+        .hero-content h1 {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .hero-content p {
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto 40px;
+            color: #cbd5e1;
+            font-weight: 300;
+        }
+        .hero-badge {
+            background: rgba(255,255,255,0.15);
+            padding: 8px 20px;
+            border-radius: 50px;
+            border: 1px solid var(--yellow);
+            color: var(--yellow);
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 25px;
+            display: inline-block;
         }
 
-        @media print {
-            body { background: white !important; -webkit-print-color-adjust: exact; }
-            .no-print { display: none !important; }
-            .main-col { width: 100% !important; max-width: 100% !important; }
-            .sidebar-col { display: none !important; }
-            input, textarea { border: none !important; resize: none; }
-            .print-bg-header { background-color: #f1f5f9 !important; border-bottom: 2px solid #0f172a; }
+        /* --- 5. ABOUT SECTION --- */
+        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+        .about-img-box { position: relative; }
+        .about-img-box img { border-radius: 12px; box-shadow: var(--shadow-lg); position: relative; z-index: 1; }
+        .about-img-box::before {
+            content: '';
+            position: absolute;
+            top: -20px; left: -20px;
+            width: 100%; height: 100%;
+            border: 3px solid var(--teal);
+            border-radius: 12px;
+            z-index: 0;
+        }
+        .exp-badge {
+            position: absolute;
+            bottom: -30px;
+            right: 30px;
+            background: var(--navy);
+            color: var(--white);
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: var(--shadow-md);
+            z-index: 2;
+            text-align: center;
+        }
+        .exp-badge h3 { font-size: 32px; font-weight: 800; color: var(--yellow); line-height: 1; }
+        .exp-badge span { font-size: 14px; font-weight: 500; text-transform: uppercase; }
+
+        /* --- 6. MISSION & VALUES --- */
+        .mission-values-section {
+            background-color: var(--navy-dark);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        .mission-values-section::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(70, 156, 166, 0.1) 0%, transparent 70%);
+            z-index: 0;
+        }
+        .mission-box {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 60px;
+            position: relative;
+            z-index: 1;
+        }
+        .mission-icon { font-size: 48px; color: var(--yellow); margin-bottom: 20px; display: inline-block; }
+        .mission-text { font-size: 32px; font-family: 'Montserrat', sans-serif; font-weight: 700; line-height: 1.4; color: var(--white); }
+        .mission-sub { font-size: 18px; color: var(--teal); margin-top: 15px; font-weight: 300; }
+
+        .values-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; position: relative; z-index: 1; }
+        .value-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 12px;
+            transition: all 0.4s ease;
+        }
+        .value-card:hover { transform: translateY(-10px); background: rgba(255, 255, 255, 0.1); border-color: var(--yellow); box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .value-card i { font-size: 36px; color: var(--teal); margin-bottom: 20px; transition: color 0.3s; }
+        .value-card:hover i { color: var(--yellow); }
+        .value-card h4 { font-size: 16px; font-weight: 700; color: var(--white); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .value-card p { font-size: 13px; color: #cbd5e1; line-height: 1.5; }
+
+        /* --- 7. SERVICES SECTION (Redesigned for Attraction) --- */
+        .services-grid { 
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 40px 35px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Hiệu ứng nảy nhẹ */
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            flex: 1 1 320px;
+            max-width: 380px;
+            border: 1px solid var(--gray-light);
+            z-index: 1;
+        }
+
+        /* Dải màu trang trí bên trên */
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--navy), var(--teal));
+            transform: scaleX(0); /* Ẩn đi mặc định */
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        /* Số thứ tự nghệ thuật */
+        .service-num {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 60px;
+            font-weight: 900;
+            color: #f1f5f9;
+            z-index: -1;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.4s ease;
+            opacity: 0.5;
+            line-height: 1;
+        }
+
+        /* Icon Container */
+        .s-icon {
+            width: 80px; height: 80px;
+            background: #f8fafc;
+            color: var(--navy);
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 20px; /* Bo góc mềm mại */
+            font-size: 32px;
+            margin-bottom: 30px;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        /* Hiệu ứng bóng cho icon */
+        .s-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%; height: 100%;
+            border-radius: 20px;
+            box-shadow: 0 0 0 0 rgba(40, 67, 99, 0.7); /* Updated shadow color */
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+
+        .service-card h3 { 
+            font-size: 22px; 
+            color: var(--navy); 
+            margin-bottom: 15px; 
+            font-weight: 800;
+            transition: color 0.3s ease;
+        }
+        
+        .service-card p { 
+            font-size: 15px; 
+            color: var(--text-light); 
+            margin-bottom: 25px; 
+            line-height: 1.7;
+            flex-grow: 1;
+            transition: color 0.3s ease;
+        }
+
+        /* Nút xem chi tiết */
+        .service-link {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--teal);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .service-link span {
+            position: relative;
+        }
+        
+        .service-link span::after {
+            content: '';
+            position: absolute;
+            width: 0; height: 2px;
+            bottom: -2px; left: 0;
+            background: var(--yellow);
+            transition: width 0.3s ease;
+        }
+
+        /* --- HOVER STATES --- */
+        .service-card:hover { 
+            transform: translateY(-15px); 
+            box-shadow: 0 20px 50px rgba(40, 67, 99, 0.15); /* Updated shadow color */
+            border-color: transparent;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1); /* Hiện dải màu */
+        }
+
+        .service-card:hover .service-num {
+            color: var(--teal-light);
+            opacity: 0.3;
+            transform: scale(1.2) rotate(-10deg);
+        }
+
+        .service-card:hover .s-icon {
+            background: var(--navy);
+            color: var(--white);
+            transform: rotateY(180deg); /* Xoay icon 3D */
+        }
+        .service-card:hover .s-icon i {
+            transform: rotateY(-180deg); /* Giữ icon đứng yên khi khung xoay */
+        }
+
+        .service-card:hover h3 { color: var(--teal); }
+        
+        .service-card:hover .service-link { color: var(--navy); }
+        .service-card:hover .service-link span::after { width: 100%; }
+        .service-card:hover .service-link i { transform: translateX(5px); color: var(--yellow); }
+
+        /* --- 8. FEATURED SERVICE (All 5 Services) --- */
+        .featured-service { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-md); margin-bottom: 60px; }
+        .fs-content { padding: 60px; background: var(--white); display: flex; flex-direction: column; justify-content: center; }
+        .fs-img { min-height: 400px; background-size: cover; background-position: center; }
+        
+        .fs-content.dark { background: var(--navy); color: var(--white); }
+        .fs-content.dark h3 { color: var(--white); }
+        .fs-content.dark p { color: #e2e8f0; }
+        
+        /* --- 9. PROJECTS --- */
+        .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; }
+        .project-item {
+            background: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s;
+        }
+        .project-item:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+        .project-img { height: 220px; overflow: hidden; }
+        .project-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .project-item:hover .project-img img { transform: scale(1.1); }
+        
+        .project-info { padding: 25px; }
+        .p-cat { color: var(--teal); font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px; display: block; }
+        .project-info h4 { font-size: 18px; color: var(--navy); margin-bottom: 10px; }
+        .project-tags span {
+            display: inline-block;
+            background: var(--gray-light);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: var(--text-dark);
+            margin-right: 5px;
+            margin-bottom: 5px;
+        }
+
+        /* --- 10. VISION --- */
+        .vision-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .vision-box {
+            background: var(--white);
+            padding: 30px 20px;
+            text-align: center;
+            border: 1px dashed var(--teal);
+            border-radius: 8px;
+        }
+        .vision-box i { font-size: 32px; color: var(--navy); margin-bottom: 15px; }
+        .vision-box h5 { font-size: 16px; color: var(--text-dark); }
+
+        /* --- 11. FOOTER --- */
+        .footer { background: var(--navy-dark); color: #94a3b8; padding: 80px 0 30px; }
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 50px; }
+        .footer h3 { color: var(--white); margin-bottom: 20px; font-size: 20px; }
+        .footer h4 { color: var(--yellow); margin-bottom: 20px; font-size: 16px; text-transform: uppercase; }
+        .footer ul li { margin-bottom: 12px; font-size: 14px; }
+        .footer a { color: #94a3b8; }
+        .footer a:hover { color: var(--white); }
+        
+        .contact-info li { display: flex; gap: 10px; align-items: start; }
+        .contact-info i { color: var(--teal); margin-top: 4px; }
+        
+        .copyright { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; text-align: center; font-size: 14px; }
+
+        @media (max-width: 992px) {
+            .hero-content h1 { font-size: 40px; }
+            .about-grid, .featured-service { grid-template-columns: 1fr; }
+            .values-grid { grid-template-columns: repeat(3, 1fr); }
+            .vision-grid { grid-template-columns: 1fr 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .fs-img { height: 300px; order: -1; }
+            .mission-text { font-size: 24px; }
+        }
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+            .mobile-toggle { display: block; }
+            .values-grid { grid-template-columns: repeat(2, 1fr); }
+            .project-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
-<body class="text-slate-700 flex flex-col min-h-screen">
+<body>
 
-    <!-- HEADER (Sticky) -->
-    <header class="bg-nhc-navy text-white shadow-slim sticky top-0 z-50 no-print border-b-2 border-nhc-gold h-[70px]">
-        <div class="max-w-[1600px] mx-auto px-4 h-full flex items-center justify-between gap-4">
-            
-            <!-- LEFT: BRAND IDENTITY -->
-            <div class="flex items-center gap-3 w-1/3 min-w-fit">
-                <div class="bg-white px-2.5 py-1.5 rounded-lg shadow-sm h-11 flex items-center justify-center shrink-0">
-                    <div class="logo-bars">
-                        <div class="bar" style="height: 14px; background-color: #5eead4;"></div>
-                        <div class="bar" style="height: 20px; background-color: var(--teal);"></div>
-                        <div class="bar" style="height: 30px; background-color: var(--navy);"></div>
-                        <div class="bar" style="height: 40px; background-color: var(--yellow);"></div>
-                        <div class="bar" style="height: 24px; background-color: var(--navy);"></div>
-                    </div>
+    <!-- HEADER -->
+    <header>
+        <div class="container nav-wrapper">
+            <!-- UPDATED LOGO STRUCTURE MATCHING IMAGE -->
+            <a href="#" class="logo-container">
+                <div class="logo-bars">
+                    <div class="bar" style="height: 14px; background-color: #5eead4;"></div> <!-- Lightest Teal -->
+                    <div class="bar" style="height: 20px; background-color: var(--teal);"></div>
+                    <div class="bar" style="height: 30px; background-color: var(--navy);"></div>
+                    <div class="bar" style="height: 40px; background-color: var(--yellow);"></div>
+                    <div class="bar" style="height: 24px; background-color: var(--navy);"></div>
                 </div>
-                <div class="leading-tight flex flex-col justify-center">
-                    <h1 class="font-bold text-lg tracking-wide uppercase text-white leading-none mb-0.5">Nam Hoàng Controls</h1>
-                    <div class="text-[10px] text-nhc-teal font-semibold tracking-wider uppercase font-mono">15 YEARS EXPERIENCE IN BMS & T&C</div>
+                <div class="logo-text">
+                    <div class="logo-title">NAM HOÀNG CONTROLS</div>
+                    <div class="logo-subtitle">EST. 15 YEARS IN BMS & T&C</div>
                 </div>
-            </div>
-
-            <!-- CENTER: PROJECT INFO -->
-            <div class="flex-1 flex flex-col items-center justify-center h-full max-w-xl">
-                <div class="relative w-full group">
-                    <i class="fa-solid fa-pen absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-xs group-focus-within:text-nhc-gold transition"></i>
-                    <input type="text" id="headerProjName" placeholder="NHẬP TÊN DỰ ÁN..." 
-                           class="header-project-input w-full rounded py-1.5 pl-8 pr-3 text-sm font-bold text-center text-white placeholder-slate-500 uppercase tracking-wide"
-                           oninput="document.getElementById('projName').value = this.value">
-                </div>
-            </div>
-
-            <!-- RIGHT: ACTIONS -->
-            <div class="flex items-center justify-end gap-3 w-1/3">
-                <div class="hidden xl:flex items-center gap-2 mr-2 text-[10px] text-slate-400 font-mono border-r border-slate-700 pr-3">
-                    <i class="fa-solid fa-code-branch"></i> v2.3.1 Fixed
-                </div>
-                <button onclick="exportToExcel()" class="bg-nhc-gold hover:bg-yellow-400 text-nhc-navy text-xs font-bold px-4 py-2 rounded shadow transition flex items-center gap-2 group">
-                    <i class="fa-solid fa-file-excel group-hover:scale-110 transition-transform"></i>
-                    <span>Export</span>
-                </button>
-                <button onclick="window.print()" class="w-8 h-8 rounded hover:bg-white/10 flex items-center justify-center text-slate-300 hover:text-white transition" title="Print PDF">
-                    <i class="fa-solid fa-print"></i>
-                </button>
-                <button onclick="resetPrices()" class="w-8 h-8 rounded hover:bg-white/10 flex items-center justify-center text-slate-300 hover:text-red-400 transition" title="Reset Data">
-                    <i class="fa-solid fa-rotate-right"></i>
-                </button>
-            </div>
+            </a>
+            <nav class="nav-menu">
+                <a href="#about" class="active">Giới thiệu</a>
+                <a href="#mission">Sứ mệnh</a>
+                <a href="#services">Dịch vụ</a>
+                <a href="#details">Chi tiết</a>
+                <a href="#projects">Dự án</a>
+                <a href="#contact">Liên hệ</a>
+            </nav>
+            <div class="mobile-toggle"><i class="fa-solid fa-bars"></i></div>
         </div>
     </header>
 
-    <!-- PRINT HEADER -->
-    <div class="hidden print:block mb-8 pt-6 px-8 print-bg-header pb-4">
-        <div class="flex justify-between items-end">
-            <div class="flex items-center gap-4">
-                <div class="border-2 border-nhc-navy p-2 rounded">
-                   <div style="display:flex; align-items:flex-end; gap:2px;">
-                        <div style="width:8px; height:18px; background:#5eead4;"></div>
-                        <div style="width:8px; height:26px; background:#14b8a6;"></div>
-                        <div style="width:8px; height:38px; background:#0f172a;"></div>
-                        <div style="width:8px; height:50px; background:#f59e0b;"></div>
-                        <div style="width:8px; height:30px; background:#0f172a;"></div>
-                   </div>
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <span class="hero-badge">Hồ Sơ Năng Lực 2026</span>
+                <h1>Giải Pháp BMS và T&C <br>Chuyên Nghiệp</h1>
+                <p>Hơn 10 năm kinh nghiệm thực chiến nâng cao hiệu quả vận hành tòa nhà thông qua các giải pháp điều khiển chính xác, minh bạch và tối ưu.</p>
+                <div style="display: flex; gap: 15px; justify-content: center;">
+                    <a href="#contact" class="btn btn-primary">Liên Hệ Ngay</a>
+                    <a href="#projects" class="btn btn-outline">Xem Dự Án</a>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="section-padding">
+        <div class="container">
+            <div class="about-grid">
                 <div>
-                    <h1 class="text-3xl font-black text-nhc-navy uppercase tracking-tight">Nam Hoàng Controls</h1>
-                    <p class="text-xs font-bold text-slate-600 uppercase tracking-widest">15 YEARS EXPERIENCE IN BMS & T&C</p>
+                    <h4 class="text-teal" style="font-weight: 700; text-transform: uppercase; margin-bottom: 10px;">Về Nam Hoàng Controls</h4>
+                    <h2 class="text-navy" style="font-size: 36px; font-weight: 800; margin-bottom: 20px;">Đối Tác Kỹ Thuật Tin Cậy</h2>
+                    <p style="margin-bottom: 20px; font-size: 16px; color: var(--text-dark);">
+                        Chúng tôi là đơn vị chuyên sâu trong lĩnh vực <strong>BMS (Building Management System)</strong>, <strong>T&C</strong>, Đào tạo và Tư vấn kỹ thuật.
+                    </p>
+                    <p style="margin-bottom: 30px; font-size: 16px; color: var(--text-dark);">
+                        Với bề dày kinh nghiệm tại các dự án trọng điểm như Sân bay, Data Center và Nhà máy công nghệ cao, Nam Hoàng Controls cam kết mang lại giá trị thực cho từng công trình.
+                    </p>
+                    <a href="#services" class="btn btn-outline" style="border-color: var(--navy); color: var(--navy);">Xem Hồ Sơ</a>
                 </div>
-            </div>
-            <div class="text-right">
-                <h2 class="text-4xl font-black text-slate-800 uppercase">BOQ Estimate</h2>
-                <p class="text-sm font-medium text-nhc-blue mt-1" id="printDateDisplay"></p>
+                <div class="about-img-box">
+                    <img src="Images/0.png" alt="Nam Hoang Controls" style="max-width: 100%; height: auto;">
+                    <div class="exp-badge">
+                        <h3>10+</h3>
+                        <span>Năm Kinh Nghiệm</span>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- MAIN CONTENT -->
-    <div class="max-w-[1600px] mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-
-        <!-- LEFT: TABLE -->
-        <div class="lg:col-span-9 main-col space-y-6">
-            <input type="hidden" id="projName">
-            <input type="date" id="dateInput" class="hidden">
-
-            <div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm text-left border-collapse">
-                        <thead class="bg-slate-800 text-white uppercase font-bold text-[10px] tracking-wide">
-                            <tr>
-                                <th class="px-3 py-3 text-center w-10 border-r border-slate-700">STT</th>
-                                <th class="px-4 py-3 min-w-[350px] border-r border-slate-700">Mô Tả & Thông Số Kỹ Thuật</th>
-                                <th class="px-2 py-3 text-center w-14 border-r border-slate-700">ĐVT</th>
-                                <th class="px-2 py-3 text-center w-24 border-r border-slate-700">Số Lượng</th>
-                                <th class="px-3 py-3 text-right w-32 border-r border-slate-700">Đơn Giá</th>
-                                <th class="px-3 py-3 text-right w-32 border-r border-slate-700">Thành Tiền</th>
-                                <th class="px-3 py-3 w-40 hidden xl:table-cell">Ghi Chú</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tableBody"></tbody>
-                    </table>
+    <!-- MISSION & VALUES -->
+    <section id="mission" class="section-padding mission-values-section">
+        <div class="container">
+            <div class="mission-box">
+                <i class="fa-solid fa-quote-left mission-icon"></i>
+                <h3 class="mission-text">
+                    "Sứ mệnh của chúng tôi là tối ưu hóa vận hành và năng lượng cho mọi tòa nhà."
+                </h3>
+                <p class="mission-sub">KIẾN TẠO GIÁ TRỊ BỀN VỮNG</p>
+            </div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <i class="fa-solid fa-ruler-combined"></i>
+                    <h4>CHUẨN</h4>
+                    <p>Tuân thủ quy chuẩn kỹ thuật quốc tế nghiêm ngặt.</p>
                 </div>
+                <div class="value-card">
+                    <i class="fa-solid fa-file-contract"></i>
+                    <h4>MINH BẠCH</h4>
+                    <p>Báo cáo rõ ràng, quy trình kiểm tra công khai.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fa-solid fa-gauge-high"></i>
+                    <h4>HIỆU SUẤT</h4>
+                    <p>Cam kết tối ưu hóa hiệu quả sử dụng năng lượng.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fa-solid fa-handshake"></i>
+                    <h4>TIN CẬY</h4>
+                    <p>Đồng hành bền vững cùng chủ đầu tư.</p>
+                </div>
+                <div class="value-card">
+                    <i class="fa-solid fa-person-digging"></i>
+                    <h4>THỰC CHIẾN</h4>
+                    <p>Kinh nghiệm xử lý tình huống từ hiện trường.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SUMMARY (New Attractive Layout) -->
+    <section id="services" class="section-padding bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2>Hệ Sinh Thái Dịch Vụ</h2>
+                <p>Giải pháp toàn diện nâng cao hiệu quả vận hành tòa nhà ngay từ giai đoạn đầu.</p>
             </div>
             
-            <!-- Signatures -->
-            <div class="hidden print:flex justify-between mt-10 px-10">
-                <div class="text-center w-48">
-                    <p class="font-bold text-xs uppercase mb-20">Người Lập</p>
-                    <div class="border-t border-slate-400 pt-1 text-xs italic">Ký & Ghi rõ họ tên</div>
+            <div class="services-grid">
+                <!-- S1: Đào tạo -->
+                <div class="service-card">
+                    <span class="service-num">01</span>
+                    <div class="s-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                    <h3>Đào Tạo BMS Thực Chiến</h3>
+                    <p>Chương trình đào tạo được "may đo" riêng cho từng đối tượng: Kỹ thuật viên, Kỹ sư & Quản lý dự án.</p>
+                    <a href="#training" class="service-link">
+                        <span>Xem chi tiết</span> <i class="fa-solid fa-arrow-right-long"></i>
+                    </a>
                 </div>
-                <div class="text-center w-48">
-                    <p class="font-bold text-xs uppercase mb-20">Phê Duyệt</p>
-                    <div class="border-t border-slate-400 pt-1 text-xs italic">Giám Đốc / Trưởng phòng Kỹ thuật</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- RIGHT: SIDEBAR -->
-        <div class="lg:col-span-3 sidebar-col space-y-4">
-            <div class="sticky top-[85px] space-y-4">
                 
-                <!-- SUMMARY -->
-                <div class="bg-white rounded-lg shadow-md border-t-4 border-nhc-gold p-5">
-                    <h3 class="font-bold text-nhc-navy text-sm uppercase mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-file-invoice-dollar text-nhc-gold"></i> Tổng Hợp Chi Phí
-                    </h3>
-                    
-                    <div class="space-y-3 text-xs">
-                        <div class="flex justify-between text-slate-500">
-                            <span>Vật tư (A-E):</span>
-                            <span class="font-bold text-slate-800" id="sumEquipment">0</span>
-                        </div>
-                        <div class="border-t border-slate-100 my-2"></div>
-                        
-                        <div class="grid grid-cols-1 gap-2">
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-400">Lắp đặt:</span>
-                                <div class="flex items-center gap-1">
-                                    <input type="number" id="installRate" value="15" oninput="calculateTotal()" class="w-8 text-right font-bold text-nhc-blue bg-slate-50 border-b border-slate-300 focus:outline-none p-0 text-xs">
-                                    <span class="text-[10px] text-slate-400">%</span>
-                                </div>
-                                <span class="font-medium ml-auto" id="sumInstall">0</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-400">Kỹ thuật (T&C):</span>
-                                <div class="flex items-center gap-1">
-                                    <input type="number" id="engRate" value="15" oninput="calculateTotal()" class="w-8 text-right font-bold text-nhc-blue bg-slate-50 border-b border-slate-300 focus:outline-none p-0 text-xs">
-                                    <span class="text-[10px] text-slate-400">%</span>
-                                </div>
-                                <span class="font-medium ml-auto" id="sumEng">0</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-400">Dự phòng:</span>
-                                <div class="flex items-center gap-1">
-                                    <input type="number" id="contigencyRate" value="5" oninput="calculateTotal()" class="w-8 text-right font-bold text-nhc-blue bg-slate-50 border-b border-slate-300 focus:outline-none p-0 text-xs">
-                                    <span class="text-[10px] text-slate-400">%</span>
-                                </div>
-                                <span class="font-medium ml-auto" id="sumContingency">0</span>
-                            </div>
-                        </div>
-
-                        <div class="pt-3 border-t border-dashed border-slate-300 mt-2 bg-slate-50 -mx-5 px-5 pb-1">
-                            <div class="text-[10px] text-slate-400 uppercase font-bold">Tổng Cộng (VNĐ)</div>
-                            <div class="text-2xl font-black text-nhc-navy tracking-tight" id="grandTotal">0</div>
-                        </div>
-                    </div>
+                <!-- S2: Bảo trì -->
+                <div class="service-card">
+                    <span class="service-num">02</span>
+                    <div class="s-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                    <h3>Bảo Trì Hệ Thống BMS</h3>
+                    <p>Quy trình bảo trì phòng ngừa chuẩn quốc tế, giúp hệ thống vận hành ổn định và tối ưu năng lượng.</p>
+                    <a href="#details" class="service-link">
+                        <span>Xem chi tiết</span> <i class="fa-solid fa-arrow-right-long"></i>
+                    </a>
                 </div>
-
-                <!-- CONFIG -->
-                <div class="bg-slate-800 rounded-lg p-4 text-white shadow-md">
-                    <h3 class="font-bold text-nhc-teal text-[10px] uppercase mb-3 flex items-center gap-2">
-                        <i class="fa-solid fa-gear"></i> Cấu hình nhanh
-                    </h3>
-                    <div class="space-y-3">
-                        <div>
-                            <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Dây / Điểm (m)</label>
-                            <!-- FIXED: Function call matches JS name -->
-                            <input type="number" id="cableMetric" value="30" oninput="recalcCables()" class="w-full bg-slate-700 border-none rounded px-2 py-1 text-xs font-bold text-white focus:ring-1 focus:ring-nhc-teal">
-                        </div>
-                        <div>
-                            <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">License BMS</label>
-                            <select id="softwareSelect" onchange="updateSoftwareSpec()" class="w-full bg-slate-700 border-none rounded px-2 py-1 text-[10px] font-bold text-white focus:ring-1 focus:ring-nhc-teal cursor-pointer">
-                                <option>500 Points - Basic</option>
-                                <option>2,500 Points - Standard</option>
-                                <option selected>10,000 Points - Enterprise</option>
-                                <option>Unlimited Points</option>
-                            </select>
-                        </div>
-                    </div>
+                
+                <!-- S3: Phần mềm Niagara -->
+                <div class="service-card">
+                    <span class="service-num">03</span>
+                    <div class="s-icon"><i class="fa-solid fa-laptop-code"></i></div>
+                    <h3>Giải Pháp Niagara N4</h3>
+                    <p>Nền tảng quản lý tòa nhà mở mạnh mẽ nhất hiện nay, tích hợp không giới hạn (IoT, HVAC, Security).</p>
+                    <a href="#details" class="service-link">
+                        <span>Xem chi tiết</span> <i class="fa-solid fa-arrow-right-long"></i>
+                    </a>
                 </div>
-
+                
+                <!-- S4: Tư vấn T&C -->
+                <div class="service-card">
+                    <span class="service-num">04</span>
+                    <div class="s-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                    <h3>Tư Vấn & T&C M&E</h3>
+                    <p>Kiểm thử và vận hành thử nghiệm (Commissioning) chuyên sâu từ giai đoạn thiết kế đến bàn giao.</p>
+                    <a href="#details" class="service-link">
+                        <span>Xem chi tiết</span> <i class="fa-solid fa-arrow-right-long"></i>
+                    </a>
+                </div>
+                
+                <!-- S5: Tài liệu kỹ thuật -->
+                <div class="service-card">
+                    <span class="service-num">05</span>
+                    <div class="s-icon"><i class="fa-solid fa-book-open-reader"></i></div>
+                    <h3>Tài Liệu Kỹ Thuật</h3>
+                    <p>Kho tài liệu chuẩn hóa: Quy trình vận hành (SOO), Checklist bảo trì và Hướng dẫn xử lý sự cố.</p>
+                    <a href="#details" class="service-link">
+                        <span>Xem chi tiết</span> <i class="fa-solid fa-arrow-right-long"></i>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- JAVASCRIPT -->
-    <script>
-        const sectionIcons = { "A": "fa-server", "B": "fa-network-wired", "C": "fa-temperature-high", "D": "fa-microchip", "E": "fa-bezier-curve" };
+    <!-- DETAILED SERVICES SECTION (All 5 Services) -->
+    <section id="details" class="section-padding">
+        <div class="container">
+            
+            <!-- 1. Training Block -->
+            <div class="featured-service">
+                <div class="fs-content dark">
+                    <h4 class="text-yellow" style="text-transform: uppercase; margin-bottom: 10px;">Trung Tâm Đào Tạo</h4>
+                    <h3 style="font-size: 32px; margin-bottom: 20px;">Đào Tạo BMS Thực Chiến</h3>
+                    <p style="margin-bottom: 30px;">Nội dung được tùy chỉnh theo từng đối tượng, tập trung đúng vai trò và nhu cầu sử dụng.</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px;">
+                        <div>
+                            <h5 style="color: var(--yellow); margin-bottom: 10px;">Nội Dung Đào Tạo</h5>
+                            <ul class="service-list">
+                                <li>HVAC cơ bản.</li>
+                                <li>Logic DDC & SOO.</li>
+                                <li>Testing & Commissioning.</li>
+                            </ul>
+                            <div style="margin-top: 15px;">
+                                 <a href="https://nhcontrols.github.io/BMS-training-for-building-technician" target="_blank" style="color: white; font-size: 13px; text-decoration: none; border-bottom: 1px dotted var(--yellow); display: block; margin-bottom: 5px;">
+                                    &rsaquo; Dành cho Kỹ thuật bảo trì
+                                </a>
+                                <a href="https://nhcontrols.github.io/BMS-Training-for-PM" target="_blank" style="color: white; font-size: 13px; text-decoration: none; border-bottom: 1px dotted var(--yellow);">
+                                    &rsaquo; Dành cho Giám sát/Kỹ sư trưởng
+                                </a>
+                            </div>
+                        </div>
+                        <div>
+                            <h5 style="color: var(--yellow); margin-bottom: 10px;">Đánh Giá & Chứng Chỉ</h5>
+                            <p style="font-size: 14px; color: #e2e8f0; margin-bottom: 10px;">Học viên thực hiện bài trắc nghiệm cuối khóa.</p>
+                            <p style="font-size: 14px; color: #e2e8f0;">Cấp chứng chỉ hoàn thành theo từng cấp độ, phục vụ nội bộ doanh nghiệp và hồ sơ năng lực cá nhân.</p>
+                        </div>
+                    </div>
+                    <a href="https://forms.gle/Sp3T6HLyXEFQg8b99" target="_blank" class="btn btn-outline" style="border-color: var(--yellow); color: var(--yellow); align-self: flex-start;">Đăng Ký Tư Vấn</a>
+                </div>
+                <div class="fs-img" style="background-image: url('Images/1.png" alt="Đào tạo BMS" style="max-width: 100%; height: auto');"></div>
+            </div>
 
-        let bmsData = [
-            { header: "A", title: "THIẾT BỊ PHÒNG ĐIỀU KHIỂN TRUNG TÂM" },
-            { id: "srv", name: "Máy chủ BMS (Server)", spec: "Intel Atom E3950, 8GB RAM, 64GB SSD, Win Server 2022\nKèm License Windows bản quyền", unit: "Bộ", qty: 1, note: "Redundant Ready" },
-            { id: "sw", name: "Phần mềm BMS (License)", spec: "Block 10,000 Points - Enterprise Edition\nWeb-based, Mobile App support", unit: "Gói", qty: 1, note: "Update 12 tháng" },
-            { id: "core_switch", name: "Switch Mạng Core (L3)", spec: "24 Port Gigabit, 4 SFP+, Layer 3, Managed", unit: "Bộ", qty: 1, note: "Backbone" },
-            { id: "ws", name: "Máy tính trạm (Workstation)", spec: "Core i7 Gen12, 16GB RAM, 512GB SSD", unit: "Bộ", qty: 1, note: "Operator" },
-            { id: "monitor", name: "Màn hình hiển thị", spec: "24 inch, Full HD, IPS", unit: "Bộ", qty: 2, note: "Dual Monitor" },
-            { id: "ups", name: "UPS Online 3kVA", spec: "True Online, Sinewave\nBackup: 15 mins", unit: "Bộ", qty: 1, note: "Rackmount" },
-            { id: "printer", name: "Máy in Laser màu", spec: "In mạng LAN, khổ A4", unit: "Bộ", qty: 1, note: "" },
+            <!-- 2. Maintenance Block -->
+            <div class="featured-service">
+                <div class="fs-img" style="background-image: url('Images/2.png" alt="Đào tạo BMS" style="max-width: 100%; height: auto');"></div>
+                <div class="fs-content">
+                    <h4 class="text-teal" style="text-transform: uppercase; margin-bottom: 10px;">Dịch Vụ Kỹ Thuật</h4>
+                    <h3 class="text-navy" style="font-size: 32px; margin-bottom: 20px;">Bảo Trì BMS</h3>
+                    <p style="margin-bottom: 20px; color: var(--text-dark);">Đảm bảo hệ thống vận hành ổn định và tối ưu năng lượng.</p>
+                    <ul class="service-list">
+                        <li><strong>Bảo trì định kỳ:</strong> Kiểm tra I/O, thiết bị trường, cảm biến, DDC, truyền thông.</li>
+                        <li><strong>Xử lý sự cố:</strong> Phân tích alarm, khoanh vùng và khắc phục tại hiện trường.</li>
+                        <li><strong>Tối ưu vận hành:</strong> Hiệu chỉnh logic, đề xuất cải tiến.</li>
+                        <li><strong>Báo cáo kỹ thuật:</strong> Đánh giá hiện trạng và khuyến nghị bảo trì.</li>
+                    </ul>
+                </div>
+            </div>
 
-            { header: "B", title: "THIẾT BỊ ĐO ĐẾM & TÍCH HỢP" },
-            { id: "gw", name: "Modbus Gateway", spec: "RS485 to IP, 2 Port, Industrial", unit: "Bộ", qty: 5, note: "Max 32 dev/port" },
-            { id: "pm", name: "Đồng hồ điện 3 pha", spec: "Modbus RTU, Class 0.5S", unit: "Bộ", qty: 5, note: "Power Monitoring" },
-            { id: "wm", name: "Đồng hồ nước (Smart)", spec: "Giao tiếp Modbus/Pulse, IP68", unit: "Bộ", qty: 5, note: "" },
+            <!-- 3. Niagara Block (New) -->
+            <div class="featured-service">
+                <div class="fs-content dark">
+                    <h4 class="text-yellow" style="text-transform: uppercase; margin-bottom: 10px;">Giải Pháp Phần Mềm</h4>
+                    <h3 style="font-size: 32px; margin-bottom: 20px;">Nền Tảng Niagara N4</h3>
+                    <p style="margin-bottom: 30px;">Giải pháp quản lý tòa nhà mở, tích hợp toàn diện và tối ưu hóa hiệu quả vận hành.</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <h5 style="color: var(--yellow); margin-bottom: 10px;">Tính Năng & Giao Diện</h5>
+                            <ul class="service-list">
+                                <li>Cung cấp phần mềm giám sát năng lượng (EMS).</li>
+                                <li>Giao diện tùy chỉnh, Dashboard đa dạng & hiện đại.</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 style="color: var(--yellow); margin-bottom: 10px;">Dịch Vụ Kỹ Thuật</h5>
+                            <ul class="service-list">
+                                <li>Cung cấp Module tùy chỉnh: Modbus, BACnet, SQL.</li>
+                                <li>Khóa đào tạo phần mềm Niagara chuyên sâu.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="fs-img" style="background-image: url('Images/3.png" alt="Đào tạo BMS" style="max-width: 100%; height: auto');"></div>
+            </div>
 
-            { header: "C", title: "THIẾT BỊ TRƯỜNG (FIELD DEVICES)" },
-            { id: "temp", name: "Cảm biến nhiệt độ phòng", spec: "NTC/Pt1000, Wall mount, LCD", unit: "Bộ", qty: 10, note: "" },
-            { id: "humid", name: "Cảm biến độ ẩm + nhiệt độ", spec: "Duct/Wall mount, 0-10V/4-20mA", unit: "Bộ", qty: 10, note: "" },
-            { id: "co2", name: "Cảm biến CO2", spec: "NDIR Tech, 0-2000ppm, Duct Mount", unit: "Bộ", qty: 10, note: "Air Quality" },
-            { id: "valve", name: "Van nước lạnh & Actuator", spec: "PICV DN25 + Actuator 0-10V", unit: "Bộ", qty: 10, note: "FCU/AHU" },
-            { id: "dps", name: "Cảm biến chênh áp gió", spec: "0-500Pa, Analog Output 0-10V", unit: "Bộ", qty: 10, note: "Filter Status" },
-            { id: "dps_sw", name: "Công tắc chênh áp gió", spec: "Adjustable 20-200Pa, SPDT", unit: "Bộ", qty: 10, note: "Fan Status" },
-            { id: "co", name: "Cảm biến khí CO", spec: "Electrochemical, 0-300ppm", unit: "Bộ", qty: 10, note: "Car Park" },
+            <!-- 4. Consulting & T&C Block (New) -->
+            <div class="featured-service">
+                <div class="fs-img" style="background-image: url('Images/4.png" alt="Đào tạo BMS" style="max-width: 100%; height: auto');"></div>
+                <div class="fs-content">
+                    <h4 class="text-teal" style="text-transform: uppercase; margin-bottom: 10px;">Tư Vấn Chuyên Sâu</h4>
+                    <h3 class="text-navy" style="font-size: 32px; margin-bottom: 20px;">Tư Vấn Testing & Commissioning (T&C)</h3>
+                    <p style="margin-bottom: 20px; color: var(--text-dark);">Đơn vị tư vấn T&C, thực hiện đánh giá – hướng dẫn – giám sát kỹ thuật.</p>
+                    <ul class="service-list">
+                        <li><strong>Review thiết kế & SOO:</strong> Rà soát tính đúng đắn của giải pháp.</li>
+                        <li><strong>Kế hoạch / Checklist T&C:</strong> Xây dựng quy trình kiểm tra chi tiết.</li>
+                        <li><strong>Hướng dẫn & Đánh giá test:</strong> Giám sát thực tế tại hiện trường.</li>
+                        <li><strong>Phân tích lỗi:</strong> Đề xuất giải pháp khắc phục triệt để.</li>
+                    </ul>
+                </div>
+            </div>
 
-            { header: "D", title: "TỦ ĐIỀU KHIỂN DDC (CẤU HÌNH IO)" },
-            { id: "ddc1", type: "ddc", name: "Tủ DDC Loại 1 (Small)", spec: "Vỏ tủ sơn tĩnh điện\nController chuẩn BACnet/IP", unit: "Tủ", qty: 5, di: 8, do: 4, ai: 4, ao: 2, hli: 0, note: "Trục tầng" },
-            { id: "ddc2", type: "ddc", name: "Tủ DDC Loại 2 (Medium)", spec: "Vỏ tủ sơn tĩnh điện\nController chuẩn BACnet/IP", unit: "Tủ", qty: 5, di: 16, do: 8, ai: 8, ao: 4, hli: 1, note: "AHU/Pump" },
-            { id: "ddc3", type: "ddc", name: "Tủ DDC Loại 3 (Large)", spec: "Vỏ tủ Form 2B\nController chuẩn BACnet/IP", unit: "Tủ", qty: 5, di: 24, do: 12, ai: 16, ao: 8, hli: 2, note: "Chiller Plant" },
+            <!-- 5. Documentation Block (New) -->
+            <div class="featured-service">
+                <div class="fs-content dark">
+                    <h4 class="text-yellow" style="text-transform: uppercase; margin-bottom: 10px;">Tài Nguyên Kỹ Thuật</h4>
+                    <h3 style="font-size: 32px; margin-bottom: 20px;">Hệ Thống Tài Liệu & Hướng Dẫn</h3>
+                    <p style="margin-bottom: 30px;">Tài liệu kỹ thuật chuẩn hóa, phục vụ vận hành, bảo trì và T&C.</p>
+                    <ul class="service-list">
+                        <li><strong>SOO:</strong> Mô tả trình tự vận hành và logic hệ thống.</li>
+                        <li><strong>MOS:</strong> Quy trình thực hiện T&C theo từng giai đoạn.</li>
+                        <li><strong>Checklist:</strong> Danh mục kiểm tra vận hành và bảo trì.</li>
+                        <li><strong>Handbook:</strong> Hướng dẫn sử dụng, xử lý sự cố cơ bản.</li>
+                    </ul>
+                </div>
+                <div class="fs-img" style="background-image: url('Images/5.png" alt="Đào tạo BMS" style="max-width: 100%; height: auto');"></div>
+            </div>
 
-            { header: "E", title: "CÁP TÍN HIỆU (AUTO-SIZING)" },
-            { id: "cab_stp", type: "cable", name: "Cáp STP - AWG18", spec: "1x2x18AWG Shielded Twisted Pair", unit: "Mét", qty: 0, note: "Modbus/AI" },
-            { id: "cab_pwr", type: "cable", name: "Dây đơn 1x1.5mm2", spec: "Cu/PVC/PVC, Standard IEC", unit: "Mét", qty: 0, note: "Power/DI/DO" },
-            { id: "cab_cat6", type: "cable", name: "Cáp mạng UTP CAT6", spec: "CAT6 UTP 4-Pair 23AWG", unit: "Mét", qty: 0, note: "Network" },
-            { id: "acc", type: "acc", name: "Vật tư phụ", spec: "Ống, máng, đầu cos, lạt thít...", unit: "Gói", qty: 0, note: "15% Cable" }
-        ];
+        </div>
+    </section>
 
-        const fmt = (num) => new Intl.NumberFormat('vi-VN', { maximumFractionDigits: 0 }).format(num);
+    <!-- PROJECTS SECTION -->
+    <section id="projects" class="section-padding bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2>Dự Án Tiêu Biểu</h2>
+                <p>Dấu ấn chất lượng tại các công trình trọng điểm.</p>
+            </div>
+            
+            <div class="project-grid">
+                <!-- Project 1 -->
+                <div class="project-item">
+                    <div class="project-img">
+                        <img src="Images/10.jpg" alt="Resort Hyatt" style="max-width: 100%; height: auto;">
+                    </div>
+                    <div class="project-info">
+                        <span class="p-cat">Nghỉ dưỡng</span>
+                        <h4>Resort Hyatt Đà Nẵng</h4>
+                        <div class="project-tags">
+                            <span>BMS</span> <span>HVAC Controls</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 2: Landmark 81 (Updated) -->
+                <div class="project-item">
+                    <div class="project-img">
+                        <img src="Images/11.jpg" alt="Landmark 81" style="max-width: 100%; height: auto;">
+                    </div>
+                    <div class="project-info">
+                        <span class="p-cat">Khách sạn cao cấp</span>
+                        <h4>Landmark 81_Tòa nhà cao nhất Việt Nam</h4>
+                        <div class="project-tags">
+                            <span>HVAC Controls</span> <span>Integration</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 3: VCB Tower (New Split) -->
+                <div class="project-item">
+                    <div class="project-img">
+                        <img src="Images/12.jpg" alt="Vietcomback Tower" style="max-width: 100%; height: auto;">
+                    </div>
+                    <div class="project-info">
+                        <span class="p-cat">Cao ốc văn phòng</span>
+                        <h4>VCB Tower</h4>
+                        <div class="project-tags">
+                            <span>BMS</span> <span>HVAC Controls</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 4: Phu Quoc Airport (New Added) -->
+                <div class="project-item">
+                    <div class="project-img">
+                        <img src="Images/13.jpg" alt="Sân bay Phú Quốc" style="max-width: 100%; height: auto;">
+                    </div>
+                    <div class="project-info">
+                        <span class="p-cat">Hạ tầng giao thông</span>
+                        <h4>Sân bay quốc tế Phú Quốc</h4>
+                        <div class="project-tags">
+                            <span>BMS</span> <span>HVAC Controls</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Project 5 -->
+                <div class="project-item">
+                    <div class="project-img">
+                        <img src="Images/14.jpg" alt="VNG DC" style="max-width: 100%; height: auto;">
+                    </div>
+                    <div class="project-info">
+                        <span class="p-cat">Trung tâm dữ liệu</span>
+                        <h4>VNG Data Center</h4>
+                        <div class="project-tags">
+                            <span>iBMS Intergration</span> <span>T&C</span>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Project 6 -->
+                 <div class="project-item">
+                    <div class="project-img">
+                         <img src="Images/15.jpg" alt="Nhà máy Lego" style="max-width: 100%; height: auto;">
+                    </div>
+                    <div class="project-info">
+                        <span class="p-cat">Công nghiệp</span>
+                        <h4>Nhà máy Lego Việt Nam</h4>
+                        <div class="project-tags">
+                            <span>T&C</span> <span>HVAC Controls</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        function renderTable() {
-            const tbody = document.getElementById('tableBody');
-            tbody.innerHTML = '';
-            let stt = 1;
+    <!-- VISION SECTION -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-header">
+                <h2>Định Hướng Phát Triển</h2>
+            </div>
+            <div class="vision-grid">
+                <div class="vision-box">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <h5>Thương hiệu đào tạo, bảo trì BMS uy tín hàng đầu.</h5>
+                </div>
+                <div class="vision-box">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <h5>Kho tài liệu kỹ thuật chất lượng cao.</h5>
+                </div>
+                <div class="vision-box">
+                    <i class="fa-solid fa-microchip"></i>
+                    <h5>Cung cấp phần mềm Niagara tùy chỉnh chuyên nghiệp.</h5>
+                </div>
+                <div class="vision-box">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                    <h5>Dịch vụ tư vấn T&C độc lập & minh bạch.</h5>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            bmsData.forEach((item, index) => {
-                if (item.header) {
-                    const icon = sectionIcons[item.header] || 'fa-box';
-                    tbody.innerHTML += `
-                        <tr class="bg-slate-50 border-t border-slate-200 no-hover">
-                            <td colspan="7" class="py-2 px-4">
-                                <div class="flex items-center gap-2 text-nhc-blue font-bold">
-                                    <div class="w-6 h-6 rounded bg-nhc-blue text-white flex items-center justify-center text-xs">${item.header}</div>
-                                    <span class="text-xs uppercase tracking-wider">${item.title}</span>
-                                    <i class="fa-solid ${icon} ml-auto text-slate-300 text-sm"></i>
-                                </div>
-                            </td>
-                        </tr>`;
-                } else {
-                    if (!item.price) item.price = 0;
+    <!-- FOOTER -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- Col 1 -->
+                <div>
+                    <!-- UPDATED LOGO FOR FOOTER (Light colors for dark background) -->
+                    <a href="#" class="logo-container" style="margin-bottom: 20px;">
+                        <div class="logo-bars">
+                            <div class="bar" style="height: 14px; background-color: #5eead4;"></div>
+                            <div class="bar" style="height: 20px; background-color: var(--teal);"></div>
+                            <div class="bar" style="height: 30px; background-color: var(--white);"></div> <!-- Changed to White for contrast -->
+                            <div class="bar" style="height: 40px; background-color: var(--yellow);"></div>
+                            <div class="bar" style="height: 24px; background-color: var(--white);"></div> <!-- Changed to White for contrast -->
+                        </div>
+                        <div class="logo-text">
+                            <div class="logo-title" style="color: var(--white);">NAM HOÀNG CONTROLS</div>
+                            <div class="logo-subtitle" style="color: #cbd5e1;">EST. 15 YEARS IN BMS and T&C</div>
+                        </div>
+                    </a>
                     
-                    let configHtml = '';
-                    if (item.type === 'ddc') {
-                        configHtml = `
-                            <div class="mt-1 flex gap-1 no-print overflow-x-auto">
-                                ${['di','do','ai','ao','hli'].map(t => `
-                                <div class="flex items-center border rounded px-1 bg-white">
-                                    <span class="text-[8px] font-bold text-slate-400 uppercase mr-1">${t}</span>
-                                    <input type="number" value="${item[t]}" oninput="updateDDCIO(${index}, '${t}', this.value)" class="w-5 text-center text-[10px] font-bold focus:outline-none">
-                                </div>`).join('')}
-                            </div>
-                            <div class="hidden print:block text-[10px] text-slate-500 italic">[${item.di}DI/${item.do}DO/${item.ai}AI/${item.ao}AO/${item.hli}HLI]</div>`;
-                    }
+                    <p style="margin-bottom: 20px;">Đối tác tin cậy chuyên sâu trong lĩnh vực đào tạo BMS và T&C.</p>
+                </div>
+                <!-- Col 2 -->
+                <div>
+                    <h4>Dịch Vụ</h4>
+                    <ul>
+                        <li><a href="#">Đào tạo BMS</a></li>
+                        <li><a href="#">Bảo trì hệ thống</a></li>
+                        <li><a href="#">Giải pháp Niagara</a></li>
+                        <li><a href="#">Tư vấn T&C</a></li>
+                    </ul>
+                </div>
+                <!-- Col 3 -->
+                <div>
+                    <h4>Tài Nguyên</h4>
+                    <ul>
+                        <li><a href="#">Checklist Bảo trì</a></li>
+                        <li><a href="#">Tài liệu T&C</a></li>
+                        <li><a href="#">SOO Mẫu</a></li>
+                    </ul>
+                </div>
+                <!-- Col 4 -->
+                <div>
+                    <h4>Liên Hệ</h4>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span>302 Phan Văn Trị, Bình Lợi Trung, TP.HCM</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-phone"></i>
+                            <span>0905 54 55 64</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-envelope"></i>
+                            <span>support@nhcontrols.com</span>
+                        </li>
+                        <li>
+                            <i class="fa-solid fa-globe"></i>
+                            <a href="https://www.namhoangcontrols.com" target="_blank" style="color: inherit;">www.namhoangcontrols.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2026 Công ty TNHH Nam Hoàng Controls. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
-                    let qtyHtml = '';
-                    if (item.type === 'cable' || item.type === 'acc') {
-                        // FIXED: ID matching the updateCableItem logic
-                        qtyHtml = `<div id="qty-d-${index}" class="text-center font-bold text-nhc-teal text-xs select-none">${Math.round(item.qty)}</div>`;
-                    } else {
-                        qtyHtml = `
-                            <div class="flex items-center justify-center gap-1 no-print">
-                                <button onclick="adjQty(${index}, -1)" class="text-slate-400 hover:text-red-500 font-bold px-1">-</button>
-                                <input id="qty-i-${index}" type="number" value="${item.qty}" class="w-8 text-center border-b border-transparent hover:border-blue-400 focus:border-blue-500 font-bold text-xs bg-transparent p-0" oninput="updRow(${index}, this.value, 'qty')">
-                                <button onclick="adjQty(${index}, 1)" class="text-slate-400 hover:text-green-500 font-bold px-1">+</button>
-                            </div>
-                            <span class="hidden print:block text-center font-bold text-xs">${Math.round(item.qty)}</span>`;
-                    }
-
-                    tbody.innerHTML += `
-                        <tr class="hover:bg-blue-50/50 border-b border-slate-100 last:border-0 group">
-                            <td class="px-3 py-3 text-center text-slate-400 text-xs border-r border-slate-50">${stt++}</td>
-                            <td class="px-4 py-3 border-r border-slate-50">
-                                <input type="text" value="${item.name}" class="font-bold text-slate-700 w-full bg-transparent focus:text-nhc-blue text-xs mb-0.5" onchange="updMeta(${index}, 'name', this.value)">
-                                <textarea rows="1" class="text-[11px] text-slate-500 w-full bg-transparent resize-y focus:bg-white rounded" onchange="updMeta(${index}, 'spec', this.value)">${item.spec}</textarea>
-                                ${configHtml}
-                            </td>
-                            <td class="px-2 py-3 text-center text-xs text-slate-500 border-r border-slate-50">${item.unit}</td>
-                            <td class="px-2 py-3 border-r border-slate-50">${qtyHtml}</td>
-                            <td class="px-3 py-3 text-right border-r border-slate-50">
-                                <input type="number" placeholder="0" class="w-full text-right bg-transparent focus:bg-white border-transparent hover:border-slate-200 focus:border-nhc-blue border rounded text-xs font-medium" value="${item.price || ''}" oninput="updRow(${index}, this.value, 'price')">
-                            </td>
-                            <td class="px-3 py-3 text-right font-bold text-slate-800 text-xs border-r border-slate-50" id="total-${index}">0</td>
-                            <td class="px-3 py-3 hidden xl:table-cell">
-                                <textarea rows="1" class="w-full bg-transparent text-xs text-right text-slate-400 focus:text-slate-600 resize-none" onchange="updMeta(${index}, 'note', this.value)">${item.note}</textarea>
-                            </td>
-                        </tr>`;
-                }
-            });
-            document.getElementById('dateInput').valueAsDate = new Date();
-            recalcCables(); // FIXED: Initial calculation call
-        }
-
-        // Logic - RENAMED to match HTML calls (recalcCables)
-        function updateDDCIO(i, t, v) { bmsData[i][t] = parseFloat(v) || 0; recalcCables(); }
-        
-        function adjQty(i, d) { 
-            let n = (bmsData[i].qty || 0) + d; 
-            if(n<0) n=0; 
-            bmsData[i].qty = n; 
-            document.getElementById(`qty-i-${i}`).value = n; 
-            recalcCables(); 
-        }
-
-        function updRow(i, v, t) { 
-            let val = parseFloat(v) || 0; 
-            if(t==='qty') { 
-                bmsData[i].qty = val; 
-                recalcCables(); 
-            } else { 
-                bmsData[i].price = val; 
-                calcTot(); 
-            }
-        }
-
-        function updMeta(i, f, v) { bmsData[i][f] = v; }
-        
-        // FIXED: Renamed function back to 'recalcCables' to match HTML onclick attribute
-        function recalcCables() {
-            const m = parseFloat(document.getElementById('cableMetric').value) || 30;
-            let ai=0, ao=0, gw=0, ddc=0, sen=0;
-            bmsData.forEach(d => {
-                if(d.type==='ddc') { ai+=d.qty*d.ai; ao+=d.qty*d.ao; ddc+=d.qty; }
-                if(d.id==='gw') gw+=d.qty;
-                if(['temp','humid','co2','valve','dps','dps_sw','oil','water_lvl','press','co'].includes(d.id)) sen+=d.qty;
-            });
-            
-            const cab = {
-                'cab_stp': (ai+ao)*m + gw*17*m,
-                'cab_pwr': (ai+ao)*m*2 + sen*m,
-                'cab_cat6': (ddc+1)*m,
-                'acc': 0 
-            };
-            cab.acc = (cab.cab_stp + cab.cab_pwr + cab.cab_cat6) * 0.15;
-
-            for(let k in cab) {
-                let idx = bmsData.findIndex(x => x.id === k);
-                if(idx>-1) {
-                    bmsData[idx].qty = Math.round(cab[k]);
-                    let el = document.getElementById(`qty-d-${idx}`);
-                    if(el) el.innerText = Math.round(cab[k]);
-                }
-            }
-            calcTot();
-        }
-
-        function calcTot() {
-            let eq = 0;
-            bmsData.forEach((d, i) => {
-                if(!d.header) {
-                    let tot = (d.qty||0)*(d.price||0);
-                    eq += tot;
-                    let el = document.getElementById(`total-${i}`);
-                    if(el) el.innerText = fmt(tot);
-                }
-            });
-
-            const r1 = parseFloat(document.getElementById('installRate').value)/100 || 0;
-            const r2 = parseFloat(document.getElementById('engRate').value)/100 || 0;
-            const r3 = parseFloat(document.getElementById('contigencyRate').value)/100 || 0;
-            
-            const c1 = eq*r1, c2 = eq*r2, sum = eq+c1+c2, c3 = sum*r3;
-            
-            document.getElementById('sumEquipment').innerText = fmt(eq);
-            document.getElementById('sumInstall').innerText = fmt(c1);
-            document.getElementById('sumEng').innerText = fmt(c2);
-            document.getElementById('sumContingency').innerText = fmt(c3);
-            document.getElementById('grandTotal').innerText = fmt(sum+c3);
-        }
-
-        function updateSoftwareSpec() {
-            const txt = document.getElementById('softwareSelect').value;
-            const idx = bmsData.findIndex(x => x.id === 'sw');
-            if(idx>-1) { bmsData[idx].spec = txt; renderTable(); }
-        }
-
-        function resetPrices() {
-            if(confirm("Reset đơn giá về 0?")) {
-                bmsData.forEach(d => { if(!d.header) d.price=0; });
-                renderTable();
-            }
-        }
-
-        function exportToExcel() {
-            const pName = document.getElementById('projName').value || 'Project';
-            const data = [
-                ["NAM HOÀNG CONTROLS - BOQ ESTIMATE"],
-                ["Dự án:", pName, "Ngày:", document.getElementById('dateInput').value],
-                [""],
-                ["STT", "Mô tả", "Thông số", "ĐVT", "SL", "Đơn giá", "Thành tiền", "Ghi chú"]
-            ];
-            let k=1;
-            bmsData.forEach(d => {
-                if(d.header) data.push([d.header + ". " + d.title]);
-                else data.push([k++, d.name, d.spec, d.unit, d.qty, d.price, (d.qty*d.price), d.note]);
-            });
-            data.push(["","","","","","",""]);
-            data.push(["","TỔNG CỘNG","","","",document.getElementById('grandTotal').innerText]);
-
-            const wb = XLSX.utils.book_new();
-            const ws = XLSX.utils.aoa_to_sheet(data);
-            ws['!cols'] = [{wch:5}, {wch:40}, {wch:40}, {wch:10}, {wch:10}, {wch:15}, {wch:20}, {wch:20}];
-            XLSX.utils.book_append_sheet(wb, ws, "BOQ");
-            XLSX.writeFile(wb, `BOQ_${pName}.xlsx`);
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('printDateDisplay').innerText = new Date().toLocaleDateString('vi-VN');
-            renderTable();
-        });
-    </script>
 </body>
 </html>
