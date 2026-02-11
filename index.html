@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BMS Master Estimator v2.3 - Nam Hoàng Controls</title>
+    <title>BMS Master Estimator v2.3.1 - Nam Hoàng Controls</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.sheetjs.com/xlsx-0.19.3/package/dist/xlsx.full.min.js"></script>
@@ -88,23 +88,21 @@
 </head>
 <body class="text-slate-700 flex flex-col min-h-screen">
 
-    <!-- v2.3 BRANDED HEADER (Sticky) -->
+    <!-- HEADER (Sticky) -->
     <header class="bg-nhc-navy text-white shadow-slim sticky top-0 z-50 no-print border-b-2 border-nhc-gold h-[70px]">
         <div class="max-w-[1600px] mx-auto px-4 h-full flex items-center justify-between gap-4">
             
-            <!-- LEFT: BRAND IDENTITY (LOGO BARS) -->
+            <!-- LEFT: BRAND IDENTITY -->
             <div class="flex items-center gap-3 w-1/3 min-w-fit">
-                <!-- White Container for Logo to make Navy bars visible -->
                 <div class="bg-white px-2.5 py-1.5 rounded-lg shadow-sm h-11 flex items-center justify-center shrink-0">
                     <div class="logo-bars">
-                        <div class="bar" style="height: 14px; background-color: #5eead4;"></div> <!-- Lightest Teal -->
+                        <div class="bar" style="height: 14px; background-color: #5eead4;"></div>
                         <div class="bar" style="height: 20px; background-color: var(--teal);"></div>
                         <div class="bar" style="height: 30px; background-color: var(--navy);"></div>
                         <div class="bar" style="height: 40px; background-color: var(--yellow);"></div>
                         <div class="bar" style="height: 24px; background-color: var(--navy);"></div>
                     </div>
                 </div>
-                
                 <div class="leading-tight flex flex-col justify-center">
                     <h1 class="font-bold text-lg tracking-wide uppercase text-white leading-none mb-0.5">Nam Hoàng Controls</h1>
                     <div class="text-[10px] text-nhc-teal font-semibold tracking-wider uppercase font-mono">15 YEARS EXPERIENCE IN BMS & T&C</div>
@@ -124,7 +122,7 @@
             <!-- RIGHT: ACTIONS -->
             <div class="flex items-center justify-end gap-3 w-1/3">
                 <div class="hidden xl:flex items-center gap-2 mr-2 text-[10px] text-slate-400 font-mono border-r border-slate-700 pr-3">
-                    <i class="fa-solid fa-code-branch"></i> v2.3 Branded
+                    <i class="fa-solid fa-code-branch"></i> v2.3.1 Fixed
                 </div>
                 <button onclick="exportToExcel()" class="bg-nhc-gold hover:bg-yellow-400 text-nhc-navy text-xs font-bold px-4 py-2 rounded shadow transition flex items-center gap-2 group">
                     <i class="fa-solid fa-file-excel group-hover:scale-110 transition-transform"></i>
@@ -144,7 +142,6 @@
     <div class="hidden print:block mb-8 pt-6 px-8 print-bg-header pb-4">
         <div class="flex justify-between items-end">
             <div class="flex items-center gap-4">
-                <!-- Print Logo Version -->
                 <div class="border-2 border-nhc-navy p-2 rounded">
                    <div style="display:flex; align-items:flex-end; gap:2px;">
                         <div style="width:8px; height:18px; background:#5eead4;"></div>
@@ -166,16 +163,14 @@
         </div>
     </div>
 
-    <!-- MAIN CONTENT GRID -->
+    <!-- MAIN CONTENT -->
     <div class="max-w-[1600px] mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
 
-        <!-- LEFT: BOQ TABLE (9 Cols) -->
+        <!-- LEFT: TABLE -->
         <div class="lg:col-span-9 main-col space-y-6">
-            
             <input type="hidden" id="projName">
             <input type="date" id="dateInput" class="hidden">
 
-            <!-- TABLE CONTAINER -->
             <div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full text-sm text-left border-collapse">
@@ -190,9 +185,7 @@
                                 <th class="px-3 py-3 w-40 hidden xl:table-cell">Ghi Chú</th>
                             </tr>
                         </thead>
-                        <tbody id="tableBody">
-                            <!-- JS Generated Rows -->
-                        </tbody>
+                        <tbody id="tableBody"></tbody>
                     </table>
                 </div>
             </div>
@@ -210,11 +203,11 @@
             </div>
         </div>
 
-        <!-- RIGHT: SIDEBAR (3 Cols) -->
+        <!-- RIGHT: SIDEBAR -->
         <div class="lg:col-span-3 sidebar-col space-y-4">
             <div class="sticky top-[85px] space-y-4">
                 
-                <!-- SUMMARY CARD -->
+                <!-- SUMMARY -->
                 <div class="bg-white rounded-lg shadow-md border-t-4 border-nhc-gold p-5">
                     <h3 class="font-bold text-nhc-navy text-sm uppercase mb-4 flex items-center gap-2">
                         <i class="fa-solid fa-file-invoice-dollar text-nhc-gold"></i> Tổng Hợp Chi Phí
@@ -261,7 +254,7 @@
                     </div>
                 </div>
 
-                <!-- CONFIG CARD -->
+                <!-- CONFIG -->
                 <div class="bg-slate-800 rounded-lg p-4 text-white shadow-md">
                     <h3 class="font-bold text-nhc-teal text-[10px] uppercase mb-3 flex items-center gap-2">
                         <i class="fa-solid fa-gear"></i> Cấu hình nhanh
@@ -269,6 +262,7 @@
                     <div class="space-y-3">
                         <div>
                             <label class="block text-[9px] font-bold text-slate-400 uppercase mb-1">Dây / Điểm (m)</label>
+                            <!-- FIXED: Function call matches JS name -->
                             <input type="number" id="cableMetric" value="30" oninput="recalcCables()" class="w-full bg-slate-700 border-none rounded px-2 py-1 text-xs font-bold text-white focus:ring-1 focus:ring-nhc-teal">
                         </div>
                         <div>
@@ -309,7 +303,7 @@
             { header: "C", title: "THIẾT BỊ TRƯỜNG (FIELD DEVICES)" },
             { id: "temp", name: "Cảm biến nhiệt độ phòng", spec: "NTC/Pt1000, Wall mount, LCD", unit: "Bộ", qty: 10, note: "" },
             { id: "humid", name: "Cảm biến độ ẩm + nhiệt độ", spec: "Duct/Wall mount, 0-10V/4-20mA", unit: "Bộ", qty: 10, note: "" },
-            { id: "co2", name: "Cảm biến CO2", spec: "NDIR Tech, 0-2000ppm", unit: "Bộ", qty: 10, note: "Air Quality" },
+            { id: "co2", name: "Cảm biến CO2", spec: "NDIR Tech, 0-2000ppm, Duct Mount", unit: "Bộ", qty: 10, note: "Air Quality" },
             { id: "valve", name: "Van nước lạnh & Actuator", spec: "PICV DN25 + Actuator 0-10V", unit: "Bộ", qty: 10, note: "FCU/AHU" },
             { id: "dps", name: "Cảm biến chênh áp gió", spec: "0-500Pa, Analog Output 0-10V", unit: "Bộ", qty: 10, note: "Filter Status" },
             { id: "dps_sw", name: "Công tắc chênh áp gió", spec: "Adjustable 20-200Pa, SPDT", unit: "Bộ", qty: 10, note: "Fan Status" },
@@ -365,6 +359,7 @@
 
                     let qtyHtml = '';
                     if (item.type === 'cable' || item.type === 'acc') {
+                        // FIXED: ID matching the updateCableItem logic
                         qtyHtml = `<div id="qty-d-${index}" class="text-center font-bold text-nhc-teal text-xs select-none">${Math.round(item.qty)}</div>`;
                     } else {
                         qtyHtml = `
@@ -397,19 +392,35 @@
                 }
             });
             document.getElementById('dateInput').valueAsDate = new Date();
-            recalc();
+            recalcCables(); // FIXED: Initial calculation call
         }
 
-        function updateDDCIO(i, t, v) { bmsData[i][t] = parseFloat(v) || 0; recalc(); }
-        function adjQty(i, d) { let n = (bmsData[i].qty || 0) + d; if(n<0) n=0; bmsData[i].qty = n; document.getElementById(`qty-i-${i}`).value = n; recalc(); }
+        // Logic - RENAMED to match HTML calls (recalcCables)
+        function updateDDCIO(i, t, v) { bmsData[i][t] = parseFloat(v) || 0; recalcCables(); }
+        
+        function adjQty(i, d) { 
+            let n = (bmsData[i].qty || 0) + d; 
+            if(n<0) n=0; 
+            bmsData[i].qty = n; 
+            document.getElementById(`qty-i-${i}`).value = n; 
+            recalcCables(); 
+        }
+
         function updRow(i, v, t) { 
             let val = parseFloat(v) || 0; 
-            if(t==='qty') { bmsData[i].qty = val; recalc(); } 
-            else { bmsData[i].price = val; calcTot(); }
+            if(t==='qty') { 
+                bmsData[i].qty = val; 
+                recalcCables(); 
+            } else { 
+                bmsData[i].price = val; 
+                calcTot(); 
+            }
         }
+
         function updMeta(i, f, v) { bmsData[i][f] = v; }
         
-        function recalc() {
+        // FIXED: Renamed function back to 'recalcCables' to match HTML onclick attribute
+        function recalcCables() {
             const m = parseFloat(document.getElementById('cableMetric').value) || 30;
             let ai=0, ao=0, gw=0, ddc=0, sen=0;
             bmsData.forEach(d => {
