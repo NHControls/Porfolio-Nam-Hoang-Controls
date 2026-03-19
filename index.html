@@ -12,11 +12,11 @@
         /* --- 1. RESET & VARIABLES --- */
         :root {
             /* Brand Colors */
-            --navy: #284363;        
-            --navy-dark: #162638;   
-            --teal: #469CA6;        
-            --teal-light: #f0f7f8;  
-            --yellow: #E5A417;      
+            --navy: #2b4e73;        
+            --navy-dark: #1e3752;   
+            --teal: #4bd6bc;        
+            --teal-light: #e6f9f6;  
+            --yellow: #FDB61B;      
             
             /* Minimalist Palette */
             --white: #ffffff;
@@ -38,7 +38,9 @@
         body {
             font-family: 'Roboto', sans-serif;
             color: var(--text-dark);
-            line-height: 1.7; /* Tăng khoảng cách dòng cho thanh lịch */
+            line-height: 1.6; /* Điều chỉnh lại một chút để dễ đọc hơn */
+            font-size: 16px; /* Thiết lập size chuẩn */
+            font-weight: 400; /* Tăng độ dày chữ lên mức tiêu chuẩn (Normal) */
             background-color: var(--white);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
@@ -98,7 +100,7 @@
             background: var(--yellow);
             margin: 15px auto 0;
         }
-        .section-header p { color: var(--text-light); max-width: 600px; margin: 0 auto; font-size: 16px; font-weight: 300; }
+        .section-header p { color: var(--text-light); max-width: 600px; margin: 0 auto; font-size: 17px; font-weight: 400; }
 
         /* --- 3. NAVIGATION & LOGO --- */
         header {
@@ -185,11 +187,11 @@
         }
         .hero-content p {
             font-family: 'Roboto', sans-serif;
-            font-size: 18px;
-            color: #e2e8f0;
-            font-weight: 300;
+            font-size: 19px;
+            color: #f1f5f9;
+            font-weight: 400;
             margin-bottom: 40px;
-            line-height: 1.8;
+            line-height: 1.7;
         }
         .hero-badge {
             background: transparent;
@@ -209,7 +211,7 @@
         .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
         .about-text h4 { color: var(--teal); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 13px; margin-bottom: 15px; }
         .about-text h2 { color: var(--navy); font-size: 36px; font-weight: 800; margin-bottom: 25px; line-height: 1.3; }
-        .about-text p { margin-bottom: 20px; font-size: 16px; color: var(--text-light); font-weight: 300; }
+        .about-text p { margin-bottom: 20px; font-size: 17px; color: var(--text-light); font-weight: 400; line-height: 1.7; }
         
         .about-img-box { position: relative; padding-right: 20px; padding-bottom: 20px; }
         .about-img-box img { border-radius: 4px; box-shadow: var(--shadow-lg); width: 100%; position: relative; z-index: 2; }
@@ -283,9 +285,9 @@
         .fs-content { padding: 60px 80px; display: flex; flex-direction: column; justify-content: center; }
         .fs-img { background-size: cover; background-position: center; min-height: 400px; }
         
-        .fs-content h4 { color: var(--teal); font-size: 12px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
+        .fs-content h4 { color: var(--teal); font-size: 12px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; font-weight: 700; }
         .fs-content h3 { font-size: 28px; color: var(--navy); margin-bottom: 20px; font-weight: 700; }
-        .fs-content p.desc { margin-bottom: 30px; font-size: 15px; color: var(--text-light); line-height: 1.8; }
+        .fs-content p.desc { margin-bottom: 30px; font-size: 16px; color: var(--text-light); line-height: 1.7; font-weight: 400; }
         
         .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px; }
         .detail-col h5 { font-size: 14px; color: var(--navy); margin-bottom: 15px; font-weight: 600; border-bottom: 1px solid var(--gray-200); padding-bottom: 8px; }
@@ -312,8 +314,8 @@
         .expert-img-wrapper img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 50%; border: 1px solid var(--gray-200); padding: 10px; }
         
         .expert-info h3 { font-size: 32px; color: var(--navy); font-weight: 800; margin-bottom: 5px; }
-        .expert-info h4 { font-size: 13px; color: var(--teal); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; }
-        .expert-info p { font-size: 15px; color: var(--text-light); line-height: 1.8; margin-bottom: 30px; }
+        .expert-info h4 { font-size: 13px; color: var(--teal); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; }
+        .expert-info p { font-size: 16px; color: var(--text-light); line-height: 1.7; margin-bottom: 30px; font-weight: 400; }
         
         .expert-stats { display: flex; gap: 40px; border-top: 1px solid var(--gray-200); padding-top: 30px; }
         .stat-item { flex: 1; }
@@ -382,11 +384,11 @@
             <!-- TALLER, CLOSER LOGO BARS -->
             <a href="#" class="logo-container">
                 <div class="logo-bars">
-                    <div class="bar" style="height: 18px; background-color: #7dd3fc;"></div>
-                    <div class="bar" style="height: 28px; background-color: var(--teal);"></div>
-                    <div class="bar" style="height: 40px; background-color: var(--navy);"></div>
-                    <div class="bar" style="height: 52px; background-color: var(--yellow);"></div>
-                    <div class="bar" style="height: 32px; background-color: var(--navy);"></div>
+                    <div class="bar" style="height: 15px; background-color: #8bf0dc;"></div>
+                    <div class="bar" style="height: 24px; background-color: var(--teal);"></div>
+                    <div class="bar" style="height: 34px; background-color: var(--navy);"></div>
+                    <div class="bar" style="height: 44px; background-color: var(--yellow);"></div>
+                    <div class="bar" style="height: 27px; background-color: var(--navy);"></div>
                 </div>
                 <div class="logo-text">
                     <div class="logo-title">NAM HOÀNG CONTROLS</div>
@@ -780,11 +782,11 @@
                     <!-- TALLER LOGO FOR FOOTER -->
                     <a href="#" class="logo-container" style="margin-bottom: 25px;">
                         <div class="logo-bars">
-                            <div class="bar" style="height: 18px; background-color: #7dd3fc;"></div>
-                            <div class="bar" style="height: 28px; background-color: var(--teal);"></div>
-                            <div class="bar" style="height: 40px; background-color: var(--white);"></div>
-                            <div class="bar" style="height: 52px; background-color: var(--yellow);"></div>
-                            <div class="bar" style="height: 32px; background-color: var(--white);"></div>
+                            <div class="bar" style="height: 15px; background-color: #8bf0dc;"></div>
+                            <div class="bar" style="height: 24px; background-color: var(--teal);"></div>
+                            <div class="bar" style="height: 34px; background-color: var(--white);"></div>
+                            <div class="bar" style="height: 44px; background-color: var(--yellow);"></div>
+                            <div class="bar" style="height: 27px; background-color: var(--white);"></div>
                         </div>
                         <div class="logo-text">
                             <div class="logo-title" style="color: var(--white);">NAM HOÀNG CONTROLS</div>
