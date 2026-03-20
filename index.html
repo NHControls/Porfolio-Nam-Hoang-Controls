@@ -21,7 +21,7 @@
             --gray-light: #fbfbfc;
             --gray-line: #e4e4e7;
             --text-main: #27272a;
-            --text-muted: #71717a;
+            --text-muted: #64748b;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -86,7 +86,7 @@
         /* Tiêu đề mục (Tech Blueprint Style) */
         .section-header { margin-bottom: 80px; position: relative; }
         .section-subtitle {
-            font-family: 'Roboto', monospace; /* Nét kỹ thuật */
+            font-family: 'Roboto', monospace;
             font-size: 12px;
             color: var(--teal);
             text-transform: uppercase;
@@ -116,12 +116,12 @@
         .nav-wrapper { display: flex; justify-content: space-between; align-items: center; width: 100%; }
         
         .logo-container { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-        .logo-bars { display: flex; align-items: flex-end; gap: 2px; }
-        .bar { width: 7px; border-radius: 0; } /* Bỏ bo tròn để tạo góc cạnh kỹ thuật */
+        .logo-bars { display: flex; align-items: flex-end; gap: 4px; }
+        .bar { width: 8px; border-radius: 0; }
         
         .logo-text { display: flex; flex-direction: column; justify-content: center; }
-        .logo-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 19px; color: var(--navy); letter-spacing: 0.5px; }
-        .logo-subtitle { font-family: 'Roboto', sans-serif; font-weight: 500; font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 2px; }
+        .logo-title { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 22px; color: var(--navy); letter-spacing: 0.5px; }
+        .logo-subtitle { font-family: 'Montserrat', sans-serif; font-weight: 600; font-size: 11px; color: #8ba0b5; text-transform: uppercase; letter-spacing: 1px; margin-top: 2px; }
         
         .nav-menu { display: flex; gap: 40px; }
         .nav-menu a {
@@ -145,7 +145,6 @@
             position: relative;
             overflow: hidden;
         }
-        /* Họa tiết lưới kỹ thuật mờ (Grid Pattern) */
         .hero::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background-image: linear-gradient(var(--gray-line) 1px, transparent 1px), linear-gradient(90deg, var(--gray-line) 1px, transparent 1px);
@@ -176,7 +175,6 @@
 
         .hero-image { position: relative; height: 600px; }
         .hero-image img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%); }
-        /* Điểm nhấn màu vàng góc ảnh */
         .hero-image::after {
             content: ''; position: absolute; bottom: -20px; right: -20px;
             width: 150px; height: 150px; background: var(--yellow); z-index: -1;
@@ -190,9 +188,9 @@
         .about-desc p { font-size: 16px; color: var(--text-muted); margin-bottom: 20px; }
         
         .about-stats { display: flex; gap: 40px; margin-top: 40px; padding-top: 40px; border-top: 1px solid var(--gray-line); }
-        .stat-item { display: flex; flex-direction: column; }
-        .stat-item .num { font-size: 48px; font-family: 'Montserrat', sans-serif; font-weight: 300; color: var(--navy); line-height: 1; }
-        .stat-item .label { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--teal); margin-top: 10px; font-weight: 600; }
+        .stat-item-box { display: flex; flex-direction: column; }
+        .stat-item-box .num { font-size: 48px; font-family: 'Montserrat', sans-serif; font-weight: 300; color: var(--navy); line-height: 1; }
+        .stat-item-box .label { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--teal); margin-top: 10px; font-weight: 600; }
 
         /* --- 6. SERVICES SUMMARY (BẢN VẼ KỸ THUẬT) --- */
         .services-list { border-top: 1px solid var(--navy); }
@@ -206,7 +204,6 @@
         .srv-info p { font-size: 15px; color: var(--text-muted); margin: 0; max-width: 600px; }
         .srv-icon { width: 50px; height: 50px; border: 1px solid var(--gray-line); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--navy); transition: all 0.3s; }
         
-        /* Hiệu ứng Hover dạng Kỹ thuật */
         .srv-item:hover { padding-left: 20px; border-bottom-color: var(--teal); }
         .srv-item:hover .srv-num { color: var(--teal); font-weight: 600; }
         .srv-item:hover .srv-info h3 { color: var(--navy); font-weight: 600; }
@@ -229,7 +226,7 @@
         .db-content h3 { font-size: 32px; font-weight: 600; margin-bottom: 25px; }
         .db-content .desc { font-size: 16px; color: var(--text-muted); margin-bottom: 40px; line-height: 1.8; }
         
-        .feature-list { display: grid; grid-template-columns: 1fr 1fr; gap: x 30px; margin-bottom: 40px; }
+        .feature-list { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 40px; }
         .feature-item { margin-bottom: 20px; }
         .feature-item h5 { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; border-bottom: 1px solid var(--gray-line); padding-bottom: 5px; }
         .feature-item ul li { font-size: 14px; color: var(--text-main); margin-bottom: 8px; position: relative; padding-left: 15px; }
@@ -238,19 +235,93 @@
         .tech-link { font-size: 13px; color: var(--navy); font-weight: 500; text-decoration: underline; text-decoration-color: var(--teal); text-underline-offset: 4px; display: inline-flex; align-items: center; gap: 5px; margin-top: 5px; }
         .tech-link:hover { color: var(--teal); }
 
-        /* --- 8. EXPERT PROFILE (MINIMAL) --- */
-        .expert-wrap { display: grid; grid-template-columns: 1fr 260px; gap: 60px; border-top: 1px solid var(--gray-line); padding-top: 60px; align-items: center; }
-        .ex-img { position: relative; text-align: center; }
-        .ex-img img { width: 100%; max-width: 260px; aspect-ratio: 1/1; object-fit: cover; border-radius: 50%; filter: grayscale(10%); border: 6px solid var(--white); box-shadow: var(--shadow-md); margin: 0 auto; transition: filter 0.3s ease; }
-        .ex-img img:hover { filter: grayscale(0%); }
-        .ex-role { position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); background: var(--navy); color: var(--white); padding: 8px 24px; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; border-radius: 50px; border: 2px solid var(--white); white-space: nowrap; z-index: 2; font-weight: 500; }
+        /* --- 8. EXPERT PROFILE (REDESIGNED) --- */
+        .expert-wrap { 
+            display: grid; 
+            grid-template-columns: 1.5fr 1fr; 
+            gap: 60px; 
+            align-items: center; 
+            padding-top: 20px; 
+        }
         
-        .ex-info h3 { font-size: 40px; font-weight: 300; margin-bottom: 30px; }
-        .ex-info h3 strong { font-weight: 700; }
-        .ex-info p { font-size: 17px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.8; }
+        .ex-info h3 { font-size: 42px; font-weight: 700; color: var(--navy); margin-bottom: 20px; }
+        .ex-info > p { font-size: 16px; color: var(--text-muted); line-height: 1.8; margin-bottom: 30px; }
         
-        .ex-highlight { background: var(--gray-light); padding: 30px; margin-top: 40px; border-left: 2px solid var(--teal); }
-        .ex-highlight p { margin: 0; font-family: 'Roboto', monospace; font-size: 14px; color: var(--navy); }
+        .ex-highlight { 
+            border-left: 2px solid var(--teal); 
+            padding-left: 15px; 
+            margin: 35px 0; 
+        }
+        .ex-highlight p { 
+            font-family: 'Roboto', monospace; 
+            font-size: 13px; 
+            color: var(--navy); 
+            margin: 0; 
+            letter-spacing: 0.5px; 
+        }
+        
+        .expert-stats { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 25px; 
+        }
+        .stat-item { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 5px; 
+        }
+        .stat-item .stat-title { 
+            font-size: 16px; 
+            font-weight: 700; 
+            color: var(--navy); 
+        }
+        .stat-item p { 
+            font-size: 16px; 
+            color: var(--text-muted); 
+            margin: 0; 
+        }
+        
+        .ex-img { 
+            position: relative; 
+            display: flex; 
+            justify-content: center; 
+            align-items: flex-end; /* Căn bottom để badge nằm chuẩn */
+        }
+        .ex-img-inner {
+            width: 300px; 
+            height: 300px;
+            border-radius: 50%;
+            background: #e9eff5; /* Vòng nền xám nhạt bao quanh */
+            padding: 12px; /* Độ dày của khoảng cách viền */
+            position: relative;
+            box-shadow: var(--shadow-sm);
+        }
+        .ex-img-inner img { 
+            width: 100%; 
+            height: 100%; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            filter: grayscale(10%); 
+            transition: filter 0.3s ease; 
+        }
+        .ex-img-inner img:hover { filter: grayscale(0%); }
+        
+        .ex-role { 
+            position: absolute; 
+            bottom: -15px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            background: var(--navy); 
+            color: var(--white); 
+            padding: 10px 24px; 
+            font-size: 12px; 
+            font-weight: 600; 
+            text-transform: uppercase; 
+            letter-spacing: 1.5px; 
+            border-radius: 50px; 
+            white-space: nowrap; 
+            z-index: 2; 
+        }
 
         /* --- 9. PROJECTS GALLERY --- */
         .project-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
@@ -294,6 +365,7 @@
             .project-gallery { grid-template-columns: 1fr; }
             .footer-grid { grid-template-columns: 1fr; gap: 40px; }
             .copyright { flex-direction: column; gap: 10px; text-align: center; }
+            .ex-img-inner { width: 250px; height: 250px; }
         }
     </style>
 </head>
@@ -302,18 +374,18 @@
     <!-- HEADER -->
     <header>
         <div class="container nav-wrapper">
-            <!-- LOGO: Thanh thấp 15%, không bo tròn, sắc sảo -->
+            <!-- LOGO: Thanh thấp 15%, đúng tone màu theo mẫu -->
             <a href="#" class="logo-container">
                 <div class="logo-bars">
-                    <div class="bar" style="height: 15px; background-color: #8bf0dc;"></div>
-                    <div class="bar" style="height: 24px; background-color: var(--teal);"></div>
-                    <div class="bar" style="height: 34px; background-color: var(--navy);"></div>
-                    <div class="bar" style="height: 44px; background-color: var(--yellow);"></div>
-                    <div class="bar" style="height: 27px; background-color: var(--navy);"></div>
+                    <div class="bar" style="height: 14px; background-color: #4bd6bc; opacity: 0.7;"></div>
+                    <div class="bar" style="height: 22px; background-color: var(--teal);"></div>
+                    <div class="bar" style="height: 32px; background-color: var(--navy);"></div>
+                    <div class="bar" style="height: 42px; background-color: var(--yellow);"></div>
+                    <div class="bar" style="height: 24px; background-color: var(--navy);"></div>
                 </div>
                 <div class="logo-text">
                     <div class="logo-title">NAM HOÀNG CONTROLS</div>
-                    <div class="logo-subtitle">BMS & T&C EXPERT</div>
+                    <div class="logo-subtitle">EST. 15 YEARS IN BMS & T&C</div>
                 </div>
             </a>
             <nav class="nav-menu">
@@ -358,11 +430,11 @@
                     <p>Khác với các nhà thầu thi công đại trà, mọi nỗ lực của Nam Hoàng Controls từ khâu soát xét thiết kế, lập trình logic (DDC), tích hợp phần mềm cho đến quy trình đánh giá T&C đều hướng tới một hệ thống minh bạch, dễ bảo trì và tiết kiệm năng lượng thực sự cho Chủ đầu tư.</p>
                     
                     <div class="about-stats">
-                        <div class="stat-item">
+                        <div class="stat-item-box">
                             <span class="num">15+</span>
                             <span class="label">Năm Thực Chiến</span>
                         </div>
-                        <div class="stat-item">
+                        <div class="stat-item-box">
                             <span class="num">06</span>
                             <span class="label">Bước T&C Chuẩn (CxL0-L6)</span>
                         </div>
@@ -596,17 +668,13 @@
         </div>
     </section>
 
-    <!-- EXPERT PROFILE (MINIMAL) -->
+    <!-- EXPERT PROFILE (UPDATED AS REQUESTED) -->
     <section id="expert" class="section-padding bg-gray">
         <div class="container">
-            <div class="section-header">
-                <div class="section-subtitle">Chuyên Gia Kỹ Thuật</div>
-                <h2>Sự am hiểu từ <strong>Thực Chiến</strong>.</h2>
-            </div>
             
             <div class="expert-wrap">
                 <div class="ex-info">
-                    <h3><strong>Nam Hoàng</strong></h3>
+                    <h3>Nam Hoàng</h3>
                     <p>Với <strong>15 năm gắn bó</strong> cùng các hệ thống Chiller, HVAC và tự động hóa, tôi hiểu rõ "tính cách" của từng thiết bị dưới góc độ điều khiển. Tôi đã trực tiếp cấu hình, khắc phục lỗi và giám sát nghiệm thu (T&C) cho các dự án yêu cầu độ chính xác cực cao như Trung tâm dữ liệu (Data Center), Nhà máy công nghệ và Sân bay quốc tế.</p>
                     
                     <div class="ex-highlight">
@@ -615,19 +683,21 @@
                     
                     <div class="expert-stats">
                         <div class="stat-item">
-                            <div class="stat-num">10+ <span>Năm</span></div>
+                            <div class="stat-title">10+ Năm</div>
                             <p>Kinh nghiệm chuyên sâu BMS hãng Honeywell.</p>
                         </div>
                         <div class="stat-item">
-                            <div class="stat-num">05+ <span>Năm</span></div>
+                            <div class="stat-title">05+ Năm</div>
                             <p>Vai trò chuyên gia T&C độc lập.</p>
                         </div>
                     </div>
                 </div>
                 
                 <div class="ex-img">
-                    <img src="Images/profile.jpg" alt="Chuyên gia Nam Hoàng">
-                    <div class="ex-role">Lead Engineer</div>
+                    <div class="ex-img-inner">
+                        <img src="Images/profile.jpg" alt="Chuyên gia Nam Hoàng">
+                    </div>
+                    <div class="ex-role">LEAD ENGINEER</div>
                 </div>
             </div>
         </div>
@@ -707,15 +777,15 @@
                     <!-- LOGO SAME AS HEADER -->
                     <a href="#" class="logo-container" style="margin-bottom: 25px;">
                         <div class="logo-bars">
-                            <div class="bar" style="height: 15px; background-color: #8bf0dc;"></div>
-                            <div class="bar" style="height: 24px; background-color: var(--teal);"></div>
-                            <div class="bar" style="height: 34px; background-color: var(--navy);"></div>
-                            <div class="bar" style="height: 44px; background-color: var(--yellow);"></div>
-                            <div class="bar" style="height: 27px; background-color: var(--navy);"></div>
+                            <div class="bar" style="height: 14px; background-color: #4bd6bc; opacity: 0.7;"></div>
+                            <div class="bar" style="height: 22px; background-color: var(--teal);"></div>
+                            <div class="bar" style="height: 32px; background-color: var(--navy);"></div>
+                            <div class="bar" style="height: 42px; background-color: var(--yellow);"></div>
+                            <div class="bar" style="height: 24px; background-color: var(--navy);"></div>
                         </div>
                         <div class="logo-text">
                             <div class="logo-title">NAM HOÀNG CONTROLS</div>
-                            <div class="logo-subtitle">BMS & T&C EXPERT</div>
+                            <div class="logo-subtitle">EST. 15 YEARS IN BMS & T&C</div>
                         </div>
                     </a>
                     <p style="font-size: 14px; line-height: 1.8; color: var(--text-muted);">Đối tác tin cậy chuyên sâu cung cấp giải pháp, đào tạo và tư vấn độc lập hệ thống BMS & T&C Cơ điện.</p>
