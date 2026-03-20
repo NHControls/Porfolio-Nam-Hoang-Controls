@@ -9,27 +9,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        /* --- 1. RESET & VARIABLES --- */
+        /* --- 1. RESET & VARIABLES (MINIMAL & TECH) --- */
         :root {
-            /* Brand Colors */
+            /* Exact Brand Colors */
             --navy: #2b4e73;        
-            --navy-dark: #1e3752;   
             --teal: #4bd6bc;        
-            --teal-light: #e6f9f6;  
             --yellow: #FDB61B;      
             
             /* Minimalist Palette */
             --white: #ffffff;
-            --gray-50: #fafafa;
-            --gray-100: #f4f4f5;
-            --gray-200: #e4e4e7;
-            --text-dark: #27272a;
-            --text-light: #52525b;
-            
-            /* Elegant Shadows */
-            --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.03);
-            --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.05);
-            --shadow-lg: 0 20px 40px rgba(40, 67, 99, 0.08);
+            --gray-light: #fbfbfc;
+            --gray-line: #e4e4e7;
+            --text-main: #27272a;
+            --text-muted: #71717a;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -37,342 +29,270 @@
         
         body {
             font-family: 'Roboto', sans-serif;
-            color: var(--text-dark);
-            line-height: 1.6; /* Điều chỉnh lại một chút để dễ đọc hơn */
-            font-size: 16px; /* Thiết lập size chuẩn */
-            font-weight: 400; /* Tăng độ dày chữ lên mức tiêu chuẩn (Normal) */
+            color: var(--text-main);
+            line-height: 1.7; 
+            font-size: 16px; 
+            font-weight: 400; 
             background-color: var(--white);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        h1, h2, h3, h4, h5 { font-family: 'Montserrat', sans-serif; line-height: 1.3; }
+        h1, h2, h3, h4, h5 { font-family: 'Montserrat', sans-serif; line-height: 1.3; color: var(--navy); }
         a { text-decoration: none; transition: all 0.3s ease; }
         ul { list-style: none; }
         img { max-width: 100%; height: auto; display: block; object-fit: cover; }
 
-        /* --- 2. UTILITY CLASSES --- */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .section-padding { padding: 100px 0; } /* Tăng khoảng trắng */
-        .bg-light { background-color: var(--gray-50); }
-        .text-center { text-align: center; }
-        .text-navy { color: var(--navy); }
-        .text-teal { color: var(--teal); }
-        .text-yellow { color: var(--yellow); }
-
-        .btn {
-            display: inline-block;
-            padding: 14px 36px;
-            border-radius: 4px;
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-size: 13px;
-            cursor: pointer;
-            border: none;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary { background-color: var(--navy); color: var(--white); }
-        .btn-primary:hover { background-color: var(--teal); transform: translateY(-2px); box-shadow: var(--shadow-md); }
-
-        .btn-outline { border: 1px solid var(--white); color: var(--white); background: transparent; }
-        .btn-outline:hover { background: var(--white); color: var(--navy); }
+        /* --- 2. LAYOUT & UTILITIES --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .section-padding { padding: 120px 0; } 
+        .bg-gray { background-color: var(--gray-light); }
         
-        .btn-outline-dark { border: 1px solid var(--navy); color: var(--navy); background: transparent; }
-        .btn-outline-dark:hover { background: var(--navy); color: var(--white); }
-
-        .section-header { margin-bottom: 70px; text-align: center; }
-        .section-header h2 {
-            font-size: 32px;
-            color: var(--navy);
-            font-weight: 700;
-            margin-bottom: 20px;
+        /* Nút bấm thanh lịch (Minimal Buttons) */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 500;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            font-size: 12px;
+            cursor: pointer;
+            border: 1px solid var(--navy);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+            background: transparent;
+            color: var(--navy);
+            z-index: 1;
         }
-        .section-header h2::after {
-            content: '';
-            display: block;
-            width: 40px;
-            height: 3px;
-            background: var(--yellow);
-            margin: 15px auto 0;
+        
+        .btn::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--navy); z-index: -1; transform: scaleX(0); transform-origin: right;
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
-        .section-header p { color: var(--text-light); max-width: 600px; margin: 0 auto; font-size: 17px; font-weight: 400; }
 
-        /* --- 3. NAVIGATION & LOGO --- */
-        header {
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--gray-100);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            height: 85px;
+        .btn:hover { color: var(--white); border-color: var(--navy); }
+        .btn:hover::after { transform: scaleX(1); transform-origin: left; }
+
+        .btn-fill { background: var(--navy); color: var(--white); }
+        .btn-fill::after { background: var(--teal); }
+        .btn-fill:hover { border-color: var(--teal); color: var(--navy); }
+
+        /* Tiêu đề mục (Tech Blueprint Style) */
+        .section-header { margin-bottom: 80px; position: relative; }
+        .section-subtitle {
+            font-family: 'Roboto', monospace; /* Nét kỹ thuật */
+            font-size: 12px;
+            color: var(--teal);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
-            transition: all 0.3s ease;
+            gap: 15px;
+        }
+        .section-subtitle::before { content: ''; width: 40px; height: 1px; background: var(--teal); }
+        .section-header h2 { font-size: 42px; font-weight: 300; letter-spacing: -0.5px; }
+        .section-header h2 strong { font-weight: 700; }
+        .section-header p { color: var(--text-muted); max-width: 600px; margin-top: 20px; font-size: 16px; }
+
+        /* Đường kẻ kỹ thuật */
+        .tech-divider { width: 100%; height: 1px; background: var(--gray-line); margin: 60px 0; position: relative; }
+        .tech-divider::before { content: ''; position: absolute; left: 0; top: -2px; width: 5px; height: 5px; background: var(--teal); }
+
+        /* --- 3. HEADER (TRONG SUỐT & TINH TẾ) --- */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--gray-line);
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+            height: 90px; display: flex; align-items: center;
         }
         .nav-wrapper { display: flex; justify-content: space-between; align-items: center; width: 100%; }
         
-        /* LOGO TỐI GIẢN & CAO HƠN */
         .logo-container { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-        .logo-bars {
-            display: flex;
-            align-items: flex-end;
-            gap: 2px; /* Thu hẹp khoảng cách */
-        }
-        .bar { width: 7px; border-radius: 1px; }
-        .logo-text { display: flex; flex-direction: column; justify-content: center; }
-        .logo-title {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 800;
-            font-size: 20px;
-            color: var(--navy);
-            line-height: 1;
-            letter-spacing: -0.5px;
-        }
-        .logo-subtitle {
-            font-family: 'Roboto', sans-serif;
-            font-weight: 500;
-            font-size: 10px;
-            color: var(--text-light);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 4px;
-        }
+        .logo-bars { display: flex; align-items: flex-end; gap: 2px; }
+        .bar { width: 7px; border-radius: 0; } /* Bỏ bo tròn để tạo góc cạnh kỹ thuật */
         
-        .nav-menu { display: flex; gap: 35px; }
+        .logo-text { display: flex; flex-direction: column; justify-content: center; }
+        .logo-title { font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 19px; color: var(--navy); letter-spacing: 0.5px; }
+        .logo-subtitle { font-family: 'Roboto', sans-serif; font-weight: 500; font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 2px; }
+        
+        .nav-menu { display: flex; gap: 40px; }
         .nav-menu a {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 500;
-            color: var(--navy);
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
+            font-family: 'Montserrat', sans-serif; font-weight: 500; color: var(--text-main);
+            font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; position: relative;
         }
-        .nav-menu a:hover, .nav-menu a.active { color: var(--teal); }
+        .nav-menu a:hover, .nav-menu a.active { color: var(--navy); }
         .nav-menu a::after {
             content: ''; position: absolute; width: 0; height: 1px;
-            bottom: -5px; left: 0; background: var(--teal); transition: width 0.3s;
+            bottom: -6px; left: 0; background: var(--yellow); transition: width 0.3s;
         }
         .nav-menu a:hover::after { width: 100%; }
         .mobile-toggle { display: none; font-size: 24px; color: var(--navy); cursor: pointer; }
 
-        /* --- 4. HERO SECTION --- */
+        /* --- 4. HERO SECTION (MINIMAL EDITORIAL) --- */
         .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(40, 67, 99, 0.85), rgba(22, 38, 56, 0.9)),
-                        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            color: var(--white);
-            padding-top: 85px;
+            min-height: 100vh;
+            display: flex; align-items: center;
+            padding-top: 90px;
+            background: var(--gray-light);
+            position: relative;
+            overflow: hidden;
         }
-        .hero-content { max-width: 900px; margin: 0 auto; }
-        .hero-content h1 {
-            font-size: 52px;
-            font-weight: 800;
-            margin-bottom: 25px;
-            letter-spacing: 1px;
-            line-height: 1.2;
+        /* Họa tiết lưới kỹ thuật mờ (Grid Pattern) */
+        .hero::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(var(--gray-line) 1px, transparent 1px), linear-gradient(90deg, var(--gray-line) 1px, transparent 1px);
+            background-size: 40px 40px; opacity: 0.4; z-index: 0;
         }
-        .hero-content p {
-            font-family: 'Roboto', sans-serif;
-            font-size: 19px;
-            color: #f1f5f9;
-            font-weight: 400;
-            margin-bottom: 40px;
-            line-height: 1.7;
+        
+        .hero-container {
+            position: relative; z-index: 1;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
         }
+        
         .hero-badge {
-            background: transparent;
-            padding: 6px 16px;
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 50px;
-            color: var(--white);
-            text-transform: uppercase;
-            font-weight: 500;
-            font-size: 12px;
-            letter-spacing: 2px;
-            margin-bottom: 30px;
-            display: inline-block;
+            font-family: 'Roboto', monospace; font-size: 11px; color: var(--teal);
+            text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px; display: block;
+        }
+        
+        .hero-content h1 {
+            font-size: 56px; font-weight: 300; color: var(--navy);
+            line-height: 1.1; margin-bottom: 30px; letter-spacing: -1px;
+        }
+        .hero-content h1 strong { font-weight: 700; color: var(--navy); }
+        
+        .hero-content p {
+            font-size: 18px; color: var(--text-muted); font-weight: 300;
+            line-height: 1.8; margin-bottom: 40px; max-width: 90%;
+            border-left: 1px solid var(--teal); padding-left: 20px;
         }
 
-        /* --- 5. ABOUT SECTION (Elegant) --- */
-        .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-        .about-text h4 { color: var(--teal); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; font-size: 13px; margin-bottom: 15px; }
-        .about-text h2 { color: var(--navy); font-size: 36px; font-weight: 800; margin-bottom: 25px; line-height: 1.3; }
-        .about-text p { margin-bottom: 20px; font-size: 17px; color: var(--text-light); font-weight: 400; line-height: 1.7; }
-        
-        .about-img-box { position: relative; padding-right: 20px; padding-bottom: 20px; }
-        .about-img-box img { border-radius: 4px; box-shadow: var(--shadow-lg); width: 100%; position: relative; z-index: 2; }
-        .about-img-box::after {
-            content: ''; position: absolute; right: 0; bottom: 0;
-            width: 80%; height: 80%; border: 1px solid var(--teal); z-index: 1; border-radius: 4px;
+        .hero-image { position: relative; height: 600px; }
+        .hero-image img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(20%); }
+        /* Điểm nhấn màu vàng góc ảnh */
+        .hero-image::after {
+            content: ''; position: absolute; bottom: -20px; right: -20px;
+            width: 150px; height: 150px; background: var(--yellow); z-index: -1;
         }
 
-        /* --- 6. MISSION & VALUES (Minimalist) --- */
-        .mission-values-section { background-color: var(--gray-50); border-top: 1px solid var(--gray-100); border-bottom: 1px solid var(--gray-100); }
-        .mission-box { text-align: center; max-width: 800px; margin: 0 auto 60px; }
-        .mission-icon { font-size: 32px; color: var(--yellow); margin-bottom: 20px; opacity: 0.8; }
-        .mission-text { font-size: 28px; font-family: 'Montserrat', sans-serif; font-weight: 600; line-height: 1.5; color: var(--navy); }
-        .mission-sub { font-size: 14px; color: var(--teal); margin-top: 20px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; }
+        /* --- 5. ABOUT (DẠNG TRÍCH DẪN & CHỈ SỐ) --- */
+        .about-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 80px; align-items: center; }
+        .about-statement { font-size: 32px; font-weight: 300; color: var(--navy); line-height: 1.4; margin-bottom: 30px; }
+        .about-statement strong { font-weight: 600; }
+        
+        .about-desc p { font-size: 16px; color: var(--text-muted); margin-bottom: 20px; }
+        
+        .about-stats { display: flex; gap: 40px; margin-top: 40px; padding-top: 40px; border-top: 1px solid var(--gray-line); }
+        .stat-item { display: flex; flex-direction: column; }
+        .stat-item .num { font-size: 48px; font-family: 'Montserrat', sans-serif; font-weight: 300; color: var(--navy); line-height: 1; }
+        .stat-item .label { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--teal); margin-top: 10px; font-weight: 600; }
 
-        .values-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
-        .value-card {
-            background: var(--white);
-            padding: 40px 20px;
-            text-align: center;
-            border-radius: 8px;
-            border: 1px solid var(--gray-100);
-            transition: all 0.3s ease;
+        /* --- 6. SERVICES SUMMARY (BẢN VẼ KỸ THUẬT) --- */
+        .services-list { border-top: 1px solid var(--navy); }
+        .srv-item {
+            display: grid; grid-template-columns: 80px 1fr auto; align-items: center; gap: 30px;
+            padding: 40px 0; border-bottom: 1px solid var(--gray-line);
+            transition: all 0.4s ease; cursor: pointer;
         }
-        .value-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--teal-light); }
-        .value-card i { font-size: 28px; color: var(--navy); margin-bottom: 20px; opacity: 0.8; }
-        .value-card h4 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
-        .value-card p { font-size: 13px; color: var(--text-light); line-height: 1.6; }
+        .srv-num { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 300; color: var(--text-muted); transition: color 0.3s; }
+        .srv-info h3 { font-size: 24px; font-weight: 400; margin-bottom: 10px; transition: color 0.3s; }
+        .srv-info p { font-size: 15px; color: var(--text-muted); margin: 0; max-width: 600px; }
+        .srv-icon { width: 50px; height: 50px; border: 1px solid var(--gray-line); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--navy); transition: all 0.3s; }
+        
+        /* Hiệu ứng Hover dạng Kỹ thuật */
+        .srv-item:hover { padding-left: 20px; border-bottom-color: var(--teal); }
+        .srv-item:hover .srv-num { color: var(--teal); font-weight: 600; }
+        .srv-item:hover .srv-info h3 { color: var(--navy); font-weight: 600; }
+        .srv-item:hover .srv-icon { background: var(--navy); color: var(--white); border-color: var(--navy); transform: rotate(-45deg); }
 
-        /* --- 7. SERVICES SUMMARY (Elegant Layout) --- */
-        .services-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; }
-        .service-card {
-            background: var(--white);
-            padding: 45px 35px;
-            border-radius: 8px;
-            border: 1px solid var(--gray-200);
-            transition: all 0.3s ease;
-            display: flex; flex-direction: column; text-align: left;
-            flex: 1 1 320px; max-width: 360px;
+        /* --- 7. DETAILED SERVICES (EDITORIAL SPLIT) --- */
+        .detail-block { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-bottom: 120px; align-items: center; }
+        .detail-block:nth-child(even) .db-content { order: 2; }
+        .detail-block:nth-child(even) .db-img { order: 1; }
+        
+        .db-img { position: relative; }
+        .db-img img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+        .db-num { 
+            position: absolute; top: -40px; left: -20px; 
+            font-size: 120px; font-family: 'Montserrat', sans-serif; font-weight: 800; 
+            color: var(--gray-light); -webkit-text-stroke: 1px var(--gray-line); z-index: -1; line-height: 1;
         }
-        .service-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: transparent; }
-        
-        .s-icon {
-            width: 60px; height: 60px;
-            background: var(--gray-50);
-            color: var(--teal);
-            display: flex; align-items: center; justify-content: center;
-            border-radius: 50%;
-            font-size: 24px;
-            margin-bottom: 25px;
-            border: 1px solid var(--gray-200);
-            transition: all 0.3s;
-        }
-        .service-card:hover .s-icon { background: var(--teal); color: var(--white); border-color: var(--teal); }
 
-        .service-card h3 { font-size: 18px; color: var(--navy); margin-bottom: 15px; font-weight: 700; letter-spacing: 0.5px; }
-        .service-card p { font-size: 14px; color: var(--text-light); margin-bottom: 25px; flex-grow: 1; line-height: 1.7; }
+        .db-content h4 { font-size: 12px; color: var(--teal); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px; }
+        .db-content h3 { font-size: 32px; font-weight: 600; margin-bottom: 25px; }
+        .db-content .desc { font-size: 16px; color: var(--text-muted); margin-bottom: 40px; line-height: 1.8; }
         
-        .service-link { font-size: 13px; font-weight: 600; color: var(--navy); display: inline-flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 1px; }
-        .service-link i { color: var(--teal); transition: transform 0.3s ease; }
-        .service-card:hover .service-link i { transform: translateX(5px); }
+        .feature-list { display: grid; grid-template-columns: 1fr 1fr; gap: x 30px; margin-bottom: 40px; }
+        .feature-item { margin-bottom: 20px; }
+        .feature-item h5 { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; border-bottom: 1px solid var(--gray-line); padding-bottom: 5px; }
+        .feature-item ul li { font-size: 14px; color: var(--text-main); margin-bottom: 8px; position: relative; padding-left: 15px; }
+        .feature-item ul li::before { content: '›'; position: absolute; left: 0; color: var(--teal); font-weight: bold; }
+        
+        .tech-link { font-size: 13px; color: var(--navy); font-weight: 500; text-decoration: underline; text-decoration-color: var(--teal); text-underline-offset: 4px; display: inline-flex; align-items: center; gap: 5px; margin-top: 5px; }
+        .tech-link:hover { color: var(--teal); }
 
-        /* --- 8. DETAILED SERVICES (Split Elegant Design) --- */
-        .featured-service { 
-            display: grid; grid-template-columns: 1fr 1fr; gap: 0; 
-            background: var(--white); border: 1px solid var(--gray-100); 
-            border-radius: 8px; overflow: hidden; margin-bottom: 60px; 
-            box-shadow: var(--shadow-sm); transition: box-shadow 0.3s;
-        }
-        .featured-service:hover { box-shadow: var(--shadow-lg); }
-        .fs-content { padding: 60px 80px; display: flex; flex-direction: column; justify-content: center; }
-        .fs-img { background-size: cover; background-position: center; min-height: 400px; }
+        /* --- 8. EXPERT PROFILE (MINIMAL) --- */
+        .expert-wrap { display: grid; grid-template-columns: 1fr 2fr; gap: 60px; border-top: 1px solid var(--navy); padding-top: 60px; }
+        .ex-img { position: relative; }
+        .ex-img img { width: 100%; aspect-ratio: 3/4; object-fit: cover; filter: grayscale(20%); }
+        .ex-role { position: absolute; bottom: 20px; left: -20px; background: var(--navy); color: var(--white); padding: 15px 30px; font-size: 13px; text-transform: uppercase; letter-spacing: 2px; }
         
-        .fs-content h4 { color: var(--teal); font-size: 12px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; font-weight: 700; }
-        .fs-content h3 { font-size: 28px; color: var(--navy); margin-bottom: 20px; font-weight: 700; }
-        .fs-content p.desc { margin-bottom: 30px; font-size: 16px; color: var(--text-light); line-height: 1.7; font-weight: 400; }
+        .ex-info h3 { font-size: 40px; font-weight: 300; margin-bottom: 30px; }
+        .ex-info h3 strong { font-weight: 700; }
+        .ex-info p { font-size: 17px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.8; }
         
-        .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px; }
-        .detail-col h5 { font-size: 14px; color: var(--navy); margin-bottom: 15px; font-weight: 600; border-bottom: 1px solid var(--gray-200); padding-bottom: 8px; }
-        
-        .service-list li { position: relative; padding-left: 20px; margin-bottom: 12px; font-size: 14px; color: var(--text-dark); line-height: 1.6; }
-        .service-list li::before { content: ''; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
-        
-        .list-link { display: block; font-size: 13px; color: var(--navy); text-decoration: none; margin-top: 5px; font-weight: 500; transition: color 0.3s; }
-        .list-link:hover { color: var(--teal); }
-        .list-link i { font-size: 10px; margin-left: 4px; color: var(--yellow); }
+        .ex-highlight { background: var(--gray-light); padding: 30px; margin-top: 40px; border-left: 2px solid var(--teal); }
+        .ex-highlight p { margin: 0; font-family: 'Roboto', monospace; font-size: 14px; color: var(--navy); }
 
-        /* Reverse layout for alternating blocks */
-        .featured-service:nth-child(even) .fs-content { order: 1; }
-        .featured-service:nth-child(even) .fs-img { order: 2; }
+        /* --- 9. PROJECTS GALLERY --- */
+        .project-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+        .pj-item { cursor: pointer; }
+        .pj-item .img-box { overflow: hidden; margin-bottom: 20px; }
+        .pj-item img { width: 100%; aspect-ratio: 4/3; object-fit: cover; transition: transform 0.6s ease; filter: grayscale(10%); }
+        .pj-item:hover img { transform: scale(1.05); filter: grayscale(0%); }
+        
+        .pj-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-top: 1px solid var(--gray-line); padding-top: 15px; }
+        .pj-cat { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--teal); font-weight: 600; }
+        .pj-tags { font-size: 11px; color: var(--text-muted); }
+        .pj-item h4 { font-size: 18px; font-weight: 500; color: var(--navy); }
 
-        /* --- EXPERT SECTION (Minimalist Profile) --- */
-        .expert-profile {
-            display: grid; grid-template-columns: 1fr 2fr; gap: 60px;
-            align-items: center; background: var(--white);
-            padding: 60px; border-radius: 8px; border: 1px solid var(--gray-100);
-            box-shadow: var(--shadow-sm);
-        }
-        .expert-img-wrapper { position: relative; }
-        .expert-img-wrapper img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border-radius: 50%; border: 1px solid var(--gray-200); padding: 10px; }
+        /* --- 10. FOOTER (CLEAN & SHARP) --- */
+        .footer { background: var(--white); padding: 80px 0 40px; border-top: 1px solid var(--gray-line); }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+        .footer h4 { font-size: 12px; color: var(--navy); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; font-weight: 600; }
+        .footer ul li { margin-bottom: 12px; font-size: 14px; color: var(--text-muted); }
+        .footer a { color: var(--text-muted); transition: color 0.3s; }
+        .footer a:hover { color: var(--teal); }
         
-        .expert-info h3 { font-size: 32px; color: var(--navy); font-weight: 800; margin-bottom: 5px; }
-        .expert-info h4 { font-size: 13px; color: var(--teal); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 25px; }
-        .expert-info p { font-size: 16px; color: var(--text-light); line-height: 1.7; margin-bottom: 30px; font-weight: 400; }
+        .contact-list li { display: flex; gap: 15px; align-items: flex-start; }
+        .contact-list i { color: var(--navy); margin-top: 4px; font-size: 14px; opacity: 0.5; }
         
-        .expert-stats { display: flex; gap: 40px; border-top: 1px solid var(--gray-200); padding-top: 30px; }
-        .stat-item { flex: 1; }
-        .stat-num { font-size: 36px; font-family: 'Montserrat', sans-serif; font-weight: 800; color: var(--navy); line-height: 1; margin-bottom: 10px; display: flex; align-items: baseline; gap: 5px; }
-        .stat-num span { font-size: 14px; color: var(--yellow); font-weight: 600; text-transform: uppercase; }
-        .stat-item p { font-size: 13px; margin: 0; color: var(--text-light); }
-
-        /* --- 9. PROJECTS --- */
-        .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 30px; }
-        .project-item { background: var(--white); border-radius: 4px; overflow: hidden; border: 1px solid var(--gray-100); transition: all 0.3s; }
-        .project-item:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: transparent; }
-        .project-img { height: 240px; overflow: hidden; }
-        .project-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; filter: grayscale(20%); }
-        .project-item:hover .project-img img { transform: scale(1.05); filter: grayscale(0%); }
-        
-        .project-info { padding: 25px; }
-        .p-cat { color: var(--teal); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block; }
-        .project-info h4 { font-size: 16px; color: var(--navy); margin-bottom: 15px; font-weight: 700; line-height: 1.4; }
-        .project-tags span { display: inline-block; font-size: 11px; color: var(--text-light); border: 1px solid var(--gray-200); padding: 4px 10px; border-radius: 50px; margin-right: 5px; }
-
-        /* --- 10. VISION --- */
-        .vision-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        .vision-box { background: var(--white); padding: 40px 20px; text-align: center; border-radius: 4px; border: 1px solid var(--gray-100); transition: all 0.3s; }
-        .vision-box:hover { box-shadow: var(--shadow-md); border-color: var(--teal-light); }
-        .vision-box i { font-size: 28px; color: var(--teal); margin-bottom: 20px; opacity: 0.8; }
-        .vision-box h5 { font-size: 14px; font-weight: 500; color: var(--navy); line-height: 1.5; }
-
-        /* --- 11. FOOTER --- */
-        .footer { background: var(--navy-dark); color: #94a3b8; padding: 80px 0 30px; border-top: 4px solid var(--teal); }
-        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 60px; }
-        .footer h4 { color: var(--white); margin-bottom: 25px; font-size: 14px; text-transform: uppercase; letter-spacing: 1.5px; }
-        .footer ul li { margin-bottom: 15px; font-size: 14px; }
-        .footer a { color: #94a3b8; text-decoration: none; transition: color 0.3s; }
-        .footer a:hover { color: var(--teal-light); }
-        
-        .contact-info li { display: flex; gap: 15px; align-items: flex-start; }
-        .contact-info i { color: var(--teal); margin-top: 4px; font-size: 14px; }
-        
-        .footer-divider { border-top: 1px solid rgba(255,255,255,0.05); margin-bottom: 30px; }
-        .copyright { text-align: center; font-size: 13px; color: #64748b; }
+        .copyright { display: flex; justify-content: space-between; align-items: center; padding-top: 30px; border-top: 1px solid var(--gray-line); font-size: 13px; color: var(--text-muted); }
 
         @media (max-width: 992px) {
-            .hero-content h1 { font-size: 40px; }
-            .about-grid, .featured-service, .expert-profile { grid-template-columns: 1fr; gap: 40px; }
-            .fs-content { padding: 40px; order: 2 !important; }
-            .fs-img { order: 1 !important; height: 300px; min-height: auto; }
-            .values-grid { grid-template-columns: repeat(3, 1fr); }
-            .vision-grid, .footer-grid { grid-template-columns: 1fr 1fr; }
-            .expert-img-wrapper { max-width: 300px; margin: 0 auto; }
-            .expert-profile { padding: 40px 20px; }
+            .hero-container { grid-template-columns: 1fr; gap: 40px; }
+            .hero-image { height: 400px; }
+            .about-grid, .detail-block, .expert-wrap { grid-template-columns: 1fr; gap: 40px; }
+            .detail-block:nth-child(even) .db-content, .detail-block:nth-child(even) .db-img { order: unset; }
+            .project-gallery { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
         }
         @media (max-width: 768px) {
             .nav-menu { display: none; }
             .mobile-toggle { display: block; }
-            .values-grid { grid-template-columns: repeat(2, 1fr); }
-            .project-grid, .footer-grid, .detail-grid, .expert-stats { grid-template-columns: 1fr; }
-            .expert-stats { gap: 30px; }
+            .srv-item { grid-template-columns: auto 1fr; }
+            .srv-icon { display: none; }
+            .feature-list { grid-template-columns: 1fr; }
+            .project-gallery { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+            .copyright { flex-direction: column; gap: 10px; text-align: center; }
         }
     </style>
 </head>
@@ -381,7 +301,7 @@
     <!-- HEADER -->
     <header>
         <div class="container nav-wrapper">
-            <!-- TALLER, CLOSER LOGO BARS -->
+            <!-- LOGO: Thanh thấp 15%, không bo tròn, sắc sảo -->
             <a href="#" class="logo-container">
                 <div class="logo-bars">
                     <div class="bar" style="height: 15px; background-color: #8bf0dc;"></div>
@@ -396,9 +316,8 @@
                 </div>
             </a>
             <nav class="nav-menu">
-                <a href="#about" class="active">Giới thiệu</a>
+                <a href="#about">Giới thiệu</a>
                 <a href="#services">Dịch vụ</a>
-                <a href="#details">Chi tiết</a>
                 <a href="#expert">Chuyên gia</a>
                 <a href="#projects">Dự án</a>
                 <a href="#contact">Liên hệ</a>
@@ -407,424 +326,429 @@
         </div>
     </header>
 
-    <!-- HERO SECTION -->
+    <!-- HERO SECTION (EDITORIAL) -->
     <section class="hero">
-        <div class="container">
+        <div class="container hero-container">
             <div class="hero-content">
-                <span class="hero-badge">Hồ Sơ Năng Lực Điện Tử</span>
-                <h1>Chuyên Gia BMS & T&C <br>Tối Ưu Vận Hành</h1>
+                <span class="hero-badge">Hồ Sơ Năng Lực 2026</span>
+                <h1>Chuyên Gia BMS <br>& <strong>Tối Ưu Vận Hành</strong></h1>
                 <p>Kinh nghiệm thực chiến 15 năm thiết kế, tích hợp và đánh giá (T&C) hệ thống tự động hóa cho tòa nhà, nhà máy và trung tâm dữ liệu khắt khe nhất.</p>
-                <div style="display: flex; gap: 20px; justify-content: center;">
-                    <a href="#contact" class="btn btn-primary">Hợp tác ngay</a>
-                    <a href="#services" class="btn btn-outline">Tìm hiểu thêm</a>
+                <div style="display: flex; gap: 20px;">
+                    <a href="#contact" class="btn btn-fill">Hợp tác ngay <i class="fa-solid fa-arrow-right"></i></a>
+                    <a href="#services" class="btn">Tìm hiểu thêm</a>
                 </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Tòa nhà thông minh">
             </div>
         </div>
     </section>
 
-    <!-- ABOUT SECTION -->
+    <!-- ABOUT SECTION (MINIMALIST) -->
     <section id="about" class="section-padding">
         <div class="container">
+            <div class="section-subtitle">Về Chúng Tôi</div>
+            
             <div class="about-grid">
-                <div class="about-text">
-                    <h4>Về Chúng Tôi</h4>
-                    <h2>Đối Tác Kỹ Thuật <br>Độc Lập & Tin Cậy</h2>
-                    <p>Nam Hoàng Controls định vị là đơn vị tư vấn và cung cấp dịch vụ kỹ thuật chuyên sâu (Niche Expert) trong lĩnh vực BMS và T&C Cơ điện.</p>
-                    <p>Khác với các nhà thầu thi công đại trà, chúng tôi tiếp cận hệ thống dưới góc nhìn của một <strong>chuyên gia vận hành</strong>. Từ khâu soát xét thiết kế, lập trình logic (DDC), tích hợp phần mềm (Niagara) cho đến quy trình đánh giá T&C chuẩn mực, mọi nỗ lực đều hướng tới một hệ thống minh bạch, dễ bảo trì và tiết kiệm năng lượng.</p>
-                    <a href="#expert" class="btn btn-outline-dark" style="margin-top: 15px;">Xem Hồ Sơ Chuyên Gia</a>
+                <div class="about-statement">
+                    Định vị là đối tác kỹ thuật <strong>độc lập & tin cậy</strong>, chúng tôi tiếp cận hệ thống BMS dưới góc nhìn của một chuyên gia vận hành.
                 </div>
-                <div class="about-img-box">
-                    <img src="Images/0.png" alt="Nam Hoang Controls">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- MISSION & VALUES -->
-    <section id="mission" class="section-padding mission-values-section">
-        <div class="container">
-            <div class="mission-box">
-                <i class="fa-solid fa-quote-left mission-icon"></i>
-                <h3 class="mission-text">
-                    "Tối ưu hóa hệ thống không chỉ là kỹ thuật, đó là cam kết về tính minh bạch và giá trị bền vững cho Chủ đầu tư."
-                </h3>
-                <p class="mission-sub">Triết Lý Vận Hành</p>
-            </div>
-            <div class="values-grid">
-                <div class="value-card">
-                    <i class="fa-solid fa-ruler-combined"></i>
-                    <h4>Chuẩn Mực</h4>
-                    <p>Áp dụng quy chuẩn kỹ thuật quốc tế trong cấu hình và T&C.</p>
-                </div>
-                <div class="value-card">
-                    <i class="fa-solid fa-file-contract"></i>
-                    <h4>Minh Bạch</h4>
-                    <p>Kiểm thử độc lập, báo cáo sự cố rõ ràng không che giấu.</p>
-                </div>
-                <div class="value-card">
-                    <i class="fa-solid fa-gauge-high"></i>
-                    <h4>Hiệu Suất</h4>
-                    <p>Tinh chỉnh Logic PID & SOO để tối ưu hóa điện năng.</p>
-                </div>
-                <div class="value-card">
-                    <i class="fa-solid fa-handshake"></i>
-                    <h4>Tin Cậy</h4>
-                    <p>Đồng hành giải quyết sự cố khó cùng Ban quản lý.</p>
-                </div>
-                <div class="value-card">
-                    <i class="fa-solid fa-person-digging"></i>
-                    <h4>Thực Chiến</h4>
-                    <p>Trực tiếp giám sát, lập trình và xử lý lỗi tại hiện trường.</p>
+                <div class="about-desc">
+                    <p>Khác với các nhà thầu thi công đại trà, mọi nỗ lực của Nam Hoàng Controls từ khâu soát xét thiết kế, lập trình logic (DDC), tích hợp phần mềm cho đến quy trình đánh giá T&C đều hướng tới một hệ thống minh bạch, dễ bảo trì và tiết kiệm năng lượng thực sự cho Chủ đầu tư.</p>
+                    
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <span class="num">15+</span>
+                            <span class="label">Năm Thực Chiến</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="num">06</span>
+                            <span class="label">Bước T&C Chuẩn (CxL0-L6)</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SERVICES SUMMARY -->
-    <section id="services" class="section-padding">
+    <!-- SERVICES OVERVIEW (BLUEPRINT STYLE) -->
+    <section id="services" class="section-padding bg-gray">
         <div class="container">
             <div class="section-header">
-                <h2>Hệ Sinh Thái Dịch Vụ</h2>
-                <p>Nền tảng dịch vụ kỹ thuật khép kín, tập trung vào chiều sâu chuyên môn nhằm nâng cao tuổi thọ và hiệu quả của hệ thống cơ điện.</p>
+                <div class="section-subtitle">Hệ Sinh Thái Dịch Vụ</div>
+                <h2>Giải pháp <strong>Nâng Cao Hiệu Quả</strong><br>vận hành ngay từ ban đầu.</h2>
             </div>
             
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="s-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-                    <h3>Đào Tạo BMS</h3>
-                    <p>Khóa học tùy chỉnh thực chiến cho Kỹ thuật viên bảo trì và Giám sát vận hành tòa nhà.</p>
-                    <a href="#details" class="service-link">Chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+            <div class="services-list">
+                <!-- S1 -->
+                <div class="srv-item" onclick="window.location.href='#sv-training'">
+                    <div class="srv-num">01.</div>
+                    <div class="srv-info">
+                        <h3>Đào Tạo BMS Thực Chiến</h3>
+                        <p>Chương trình được "may đo" riêng cho từng đối tượng: Kỹ thuật viên, Kỹ sư & Quản lý.</p>
+                    </div>
+                    <div class="srv-icon"><i class="fa-solid fa-arrow-right"></i></div>
                 </div>
-                <div class="service-card">
-                    <div class="s-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
-                    <h3>Bảo Trì & Tối Ưu</h3>
-                    <p>Dịch vụ kiểm tra chuyên sâu định kỳ, dò lỗi logic và hiệu chỉnh thiết bị trường.</p>
-                    <a href="#details" class="service-link">Chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+                <!-- S2 -->
+                <div class="srv-item" onclick="window.location.href='#sv-maintenance'">
+                    <div class="srv-num">02.</div>
+                    <div class="srv-info">
+                        <h3>Bảo Trì Hệ Thống BMS</h3>
+                        <p>Kiểm tra chuyên sâu định kỳ, dò lỗi logic và hiệu chỉnh thiết bị trường.</p>
+                    </div>
+                    <div class="srv-icon"><i class="fa-solid fa-arrow-right"></i></div>
                 </div>
-                <div class="service-card">
-                    <div class="s-icon"><i class="fa-solid fa-laptop-code"></i></div>
-                    <h3>Giải Pháp Niagara</h3>
-                    <p>Cấu hình, lập trình và xây dựng giao diện (Graphics) trên nền tảng Niagara N4.</p>
-                    <a href="#details" class="service-link">Chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+                <!-- S3 -->
+                <div class="srv-item" onclick="window.location.href='#sv-niagara'">
+                    <div class="srv-num">03.</div>
+                    <div class="srv-info">
+                        <h3>Giải Pháp Niagara N4</h3>
+                        <p>Nền tảng quản lý tòa nhà mở, tích hợp không giới hạn (IoT, HVAC, Security).</p>
+                    </div>
+                    <div class="srv-icon"><i class="fa-solid fa-arrow-right"></i></div>
                 </div>
-                <div class="service-card">
-                    <div class="s-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
-                    <h3>Tư Vấn T&C</h3>
-                    <p>Soát xét thiết kế và giám sát Commissioning độc lập để đảm bảo chất lượng bàn giao.</p>
-                    <a href="#details" class="service-link">Chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+                <!-- S4 -->
+                <div class="srv-item" onclick="window.location.href='#sv-tnc'">
+                    <div class="srv-num">04.</div>
+                    <div class="srv-info">
+                        <h3>Tư Vấn & T&C M&E</h3>
+                        <p>Kiểm thử, vận hành thử nghiệm (Commissioning) chuyên sâu từ thiết kế đến bàn giao.</p>
+                    </div>
+                    <div class="srv-icon"><i class="fa-solid fa-arrow-right"></i></div>
                 </div>
-                <div class="service-card">
-                    <div class="s-icon"><i class="fa-solid fa-book-open-reader"></i></div>
-                    <h3>Tài Liệu Kỹ Thuật</h3>
-                    <p>Cung cấp bộ quy trình vận hành (SOO, MOS) và checklist bảo trì chuẩn hóa.</p>
-                    <a href="#details" class="service-link">Chi tiết <i class="fa-solid fa-arrow-right"></i></a>
+                <!-- S5 -->
+                <div class="srv-item" onclick="window.location.href='#sv-docs'">
+                    <div class="srv-num">05.</div>
+                    <div class="srv-info">
+                        <h3>Tài Liệu Kỹ Thuật</h3>
+                        <p>Cung cấp bộ tài liệu chuẩn hóa quy trình vận hành (SOO) và bảo trì hệ thống.</p>
+                    </div>
+                    <div class="srv-icon"><i class="fa-solid fa-arrow-right"></i></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- DETAILED SERVICES SECTION -->
-    <section id="details" class="section-padding bg-light">
+    <!-- DETAILED SERVICES (EDITORIAL SPLIT) -->
+    <section class="section-padding">
         <div class="container">
             
-            <!-- 1. Training -->
-            <div class="featured-service">
-                <div class="fs-content">
+            <!-- Training -->
+            <div class="detail-block" id="sv-training">
+                <div class="db-img">
+                    <span class="db-num">01</span>
+                    <img src="Images/1.png" alt="Đào tạo BMS">
+                </div>
+                <div class="db-content">
                     <h4>Trung Tâm Đào Tạo</h4>
                     <h3>Đào Tạo BMS Thực Chiến</h3>
-                    <p class="desc">Chương trình không nặng lý thuyết, tập trung giải quyết bài toán vận hành thực tế tại dự án của học viên.</p>
+                    <p class="desc">Nội dung được tùy chỉnh theo từng đối tượng, tập trung đúng vai trò và nhu cầu sử dụng thực tế tại dự án.</p>
                     
-                    <div class="detail-grid">
-                        <div class="detail-col">
-                            <h5>Lộ Trình Tùy Chỉnh</h5>
-                            <ul class="service-list">
-                                <li>Phân tích nguyên lý HVAC cơ bản.</li>
-                                <li>Hiểu và đọc Logic DDC & SOO.</li>
-                                <li>Thực hành Testing & Commissioning.</li>
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <h5>Nội Dung Đào Tạo</h5>
+                            <ul>
+                                <li>HVAC cơ bản.</li>
+                                <li>Logic DDC & SOO.</li>
+                                <li>Testing & Commissioning.</li>
                             </ul>
                         </div>
-                        <div class="detail-col">
-                            <h5>Đối Tượng Tham Gia</h5>
-                            <ul class="service-list">
-                                <li>
-                                    <a href="https://nhcontrols.github.io/BMS-training-for-building-technician" target="_blank" class="list-link">Kỹ thuật bảo trì <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                                </li>
-                                <li>
-                                    <a href="https://nhcontrols.github.io/BMS-Training-for-PM" target="_blank" class="list-link">Giám sát / Kỹ sư trưởng <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                                </li>
-                                <li style="margin-top:5px;">In-house doanh nghiệp.</li>
-                            </ul>
+                        <div class="feature-item">
+                            <h5>Đối Tượng & Chứng Chỉ</h5>
+                            <a href="https://nhcontrols.github.io/BMS-training-for-building-technician" target="_blank" class="tech-link">Kỹ thuật bảo trì</a><br>
+                            <a href="https://nhcontrols.github.io/BMS-Training-for-PM" target="_blank" class="tech-link">Giám sát/Kỹ sư trưởng</a>
+                            <p style="font-size: 13px; color: var(--text-muted); margin-top: 10px;">Cấp chứng chỉ hoàn thành theo cấp độ.</p>
                         </div>
                     </div>
-                    <a href="https://forms.gle/Sp3T6HLyXEFQg8b99" target="_blank" class="btn btn-primary" style="align-self: flex-start;">Đăng Ký Tư Vấn</a>
+                    <a href="https://forms.gle/Sp3T6HLyXEFQg8b99" target="_blank" class="btn">Đăng ký tư vấn</a>
                 </div>
-                <div class="fs-img" style="background-image: url('Images/1.png');"></div>
             </div>
 
-            <!-- 2. Maintenance -->
-            <div class="featured-service">
-                <div class="fs-img" style="background-image: url('Images/2.png');"></div>
-                <div class="fs-content">
+            <div class="tech-divider"></div>
+
+            <!-- Maintenance -->
+            <div class="detail-block" id="sv-maintenance">
+                <div class="db-content">
                     <h4>Dịch Vụ Kỹ Thuật</h4>
-                    <h3>Bảo Trì & Tối Ưu BMS</h3>
-                    <p class="desc">Phát hiện sớm rủi ro hỏng hóc, khắc phục triệt để các cảnh báo (alarm) rác để trả lại môi trường giám sát sạch cho người vận hành.</p>
+                    <h3>Bảo Trì BMS</h3>
+                    <p class="desc">Đảm bảo hệ thống vận hành ổn định và tối ưu năng lượng thông qua quy trình kiểm tra phòng ngừa nghiêm ngặt.</p>
                     
-                    <div class="detail-grid">
-                        <div class="detail-col">
-                            <h5>Hạng Mục Thực Hiện</h5>
-                            <ul class="service-list">
-                                <li>Đo kiểm tín hiệu I/O, cảm biến.</li>
-                                <li>Bảo trì DDC và mạng truyền thông.</li>
-                                <li>Phân tích & khắc phục Alarm.</li>
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <h5>Bảo trì & Xử lý sự cố</h5>
+                            <ul>
+                                <li>Kiểm tra định kỳ I/O, DDC, truyền thông.</li>
+                                <li>Phân tích alarm, khoanh vùng hiện trường.</li>
                             </ul>
                         </div>
-                        <div class="detail-col">
-                            <h5>Giá Trị Mang Lại</h5>
-                            <ul class="service-list">
-                                <li>Hệ thống vận hành không gián đoạn.</li>
-                                <li>Tối ưu hóa tiêu thụ điện HVAC.</li>
-                                <li>Báo cáo tình trạng độc lập, rõ ràng.</li>
+                        <div class="feature-item">
+                            <h5>Tối ưu & Báo cáo</h5>
+                            <ul>
+                                <li>Hiệu chỉnh logic, đề xuất cải tiến.</li>
+                                <li>Báo cáo kỹ thuật độc lập, minh bạch.</li>
                             </ul>
                         </div>
                     </div>
                 </div>
+                <div class="db-img">
+                    <span class="db-num">02</span>
+                    <img src="Images/2.png" alt="Bảo trì BMS">
+                </div>
             </div>
 
-            <!-- 3. Niagara -->
-            <div class="featured-service">
-                <div class="fs-content">
+            <div class="tech-divider"></div>
+
+            <!-- Niagara -->
+            <div class="detail-block" id="sv-niagara">
+                <div class="db-img">
+                    <span class="db-num">03</span>
+                    <img src="Images/3.png" alt="Niagara N4">
+                </div>
+                <div class="db-content">
                     <h4>Giải Pháp Phần Mềm</h4>
-                    <h3>Tích Hợp Niagara N4</h3>
-                    <p class="desc">Khai thác tối đa sức mạnh của nền tảng IoT công nghiệp hàng đầu thế giới để hợp nhất mọi dữ liệu tòa nhà.</p>
+                    <h3>Nền Tảng Niagara N4</h3>
+                    <p class="desc">Giải pháp quản lý tòa nhà mở, tích hợp toàn diện và tối ưu hóa hiệu quả vận hành với giao diện hiện đại nhất.</p>
                     
-                    <div class="detail-grid">
-                        <div class="detail-col">
-                            <h5>Phát Triển Hệ Thống</h5>
-                            <ul class="service-list">
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <h5>Tính Năng & Giao Diện</h5>
+                            <ul>
                                 <li>Giám sát năng lượng (EMS).</li>
-                                <li>Thiết kế Dashboard UI/UX hiện đại.</li>
-                                <li>Tích hợp Modbus, BACnet, SQL.</li>
+                                <li>Dashboard đa dạng, tùy chỉnh UI/UX.</li>
                             </ul>
                         </div>
-                        <div class="detail-col">
-                            <h5>Chuyển Giao Công Nghệ</h5>
-                            <ul class="service-list">
-                                <li>Hướng dẫn cấu hình Station.</li>
+                        <div class="feature-item">
+                            <h5>Tích Hợp & Đào Tạo</h5>
+                            <ul>
+                                <li>Module: Modbus, BACnet, SQL.</li>
                                 <li>Đào tạo Niagara N4 chuyên sâu.</li>
-                                <li>Hỗ trợ nâng cấp phiên bản.</li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <div class="fs-img" style="background-image: url('Images/3.png');"></div>
             </div>
 
-            <!-- 4. T&C Consulting -->
-            <div class="featured-service">
-                <div class="fs-img" style="background-image: url('Images/4.png');"></div>
-                <div class="fs-content">
-                    <h4>Giám Sát & Đánh Giá</h4>
+            <div class="tech-divider"></div>
+
+            <!-- T&C -->
+            <div class="detail-block" id="sv-tnc">
+                <div class="db-content">
+                    <h4>Tư Vấn Chuyên Sâu</h4>
                     <h3>Tư Vấn T&C Độc Lập</h3>
-                    <p class="desc">Giữ vai trò bên thứ ba độc lập, bảo vệ quyền lợi của Chủ đầu tư thông qua quy trình nghiệm thu khắt khe.</p>
+                    <p class="desc">Đơn vị tư vấn T&C chuyên nghiệp, thực hiện đánh giá, hướng dẫn và giám sát kỹ thuật bảo vệ quyền lợi Chủ đầu tư.</p>
                     
-                    <div class="detail-grid">
-                        <div class="detail-col">
+                    <div class="feature-list">
+                        <div class="feature-item">
                             <h5>Trước Thi Công</h5>
-                            <ul class="service-list">
-                                <li>Review bản vẽ thiết kế BMS.</li>
-                                <li>Soát xét Sequence of Operation.</li>
-                                <li>Lập Kế hoạch & Checklist T&C.</li>
+                            <ul>
+                                <li>Review thiết kế & SOO kỹ thuật.</li>
+                                <li>Xây dựng Kế hoạch / Checklist T&C.</li>
                             </ul>
                         </div>
-                        <div class="detail-col">
+                        <div class="feature-item">
                             <h5>Hiện Trường</h5>
-                            <ul class="service-list">
-                                <li>Giám sát các bước test CxL0-L6.</li>
-                                <li>Xác minh tính logic liên động.</li>
-                                <li>Phân tích lỗi & yêu cầu khắc phục.</li>
+                            <ul>
+                                <li>Giám sát & Đánh giá test thực tế.</li>
+                                <li>Phân tích lỗi, đề xuất giải pháp.</li>
                             </ul>
                         </div>
                     </div>
+                </div>
+                <div class="db-img">
+                    <span class="db-num">04</span>
+                    <img src="Images/4.png" alt="Tư vấn T&C">
                 </div>
             </div>
 
-            <!-- 5. Documentation -->
-            <div class="featured-service">
-                <div class="fs-content">
+            <div class="tech-divider"></div>
+
+            <!-- Docs -->
+            <div class="detail-block" id="sv-docs">
+                <div class="db-img">
+                    <span class="db-num">05</span>
+                    <img src="Images/5.png" alt="Tài liệu kỹ thuật">
+                </div>
+                <div class="db-content">
                     <h4>Tài Nguyên Kỹ Thuật</h4>
-                    <h3>Chuẩn Hóa Tài Liệu</h3>
-                    <p class="desc">Đóng gói 15 năm kinh nghiệm thành các bộ quy trình và biểu mẫu sẵn sàng sử dụng cho mọi ban quản lý.</p>
+                    <h3>Hệ Thống Tài Liệu Chuẩn</h3>
+                    <p class="desc">Tài liệu kỹ thuật chuẩn hóa, đúc kết từ thực chiến, phục vụ đắc lực cho công tác vận hành, bảo trì và T&C.</p>
                     
-                    <div class="detail-grid">
-                        <div class="detail-col">
-                            <h5>Tài Liệu Cốt Lõi</h5>
-                            <ul class="service-list">
-                                <li><strong>SOO:</strong> Logic vận hành chuẩn.</li>
-                                <li><strong>MOS:</strong> Biện pháp thi công & T&C.</li>
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <h5>Quy Trình & Nguyên Lý</h5>
+                            <ul>
+                                <li><strong>SOO:</strong> Trình tự vận hành & logic.</li>
+                                <li><strong>MOS:</strong> Quy trình T&C từng giai đoạn.</li>
                             </ul>
                         </div>
-                        <div class="detail-col">
+                        <div class="feature-item">
                             <h5>Công Cụ Vận Hành</h5>
-                            <ul class="service-list">
-                                <li>Checklist bảo trì định kỳ.</li>
-                                <li>Handbook xử lý sự cố.</li>
+                            <ul>
+                                <li><strong>Checklist:</strong> Danh mục kiểm tra.</li>
+                                <li><strong>Handbook:</strong> Hướng dẫn xử lý sự cố.</li>
                             </ul>
                         </div>
                     </div>
                 </div>
-                <div class="fs-img" style="background-image: url('Images/5.png');"></div>
             </div>
 
         </div>
     </section>
 
-    <!-- EXPERT SECTION (Elegant Profile) -->
-    <section id="expert" class="section-padding">
+    <!-- EXPERT PROFILE (MINIMAL) -->
+    <section id="expert" class="section-padding bg-gray">
         <div class="container">
             <div class="section-header">
-                <h2>Chuyên Gia Kỹ Thuật</h2>
-                <p>Kinh nghiệm được đúc kết từ hàng trăm ngàn giờ vận hành và xử lý sự cố tại các công trình trọng điểm quốc gia.</p>
+                <div class="section-subtitle">Chuyên Gia Kỹ Thuật</div>
+                <h2>Sự am hiểu từ <strong>Thực Chiến</strong>.</h2>
             </div>
             
-            <div class="expert-profile">
-                <div class="expert-img-wrapper">
-                    <img src="Images/profile.jpg" alt="Chuyên gia Nam Hoàng">
-                </div>
-                <div class="expert-info">
-                    <h3>Nam Hoàng</h3>
-                    <h4>Kỹ Sư Tự Động Hóa Tòa Nhà & T&C</h4>
+            <div class="expert-wrap">
+                <div class="ex-info">
+                    <h3><strong>Nam Hoàng</strong></h3>
+                    <p>Với <strong>15 năm gắn bó</strong> cùng các hệ thống Chiller, HVAC và tự động hóa, tôi hiểu rõ "tính cách" của từng thiết bị dưới góc độ điều khiển. Tôi đã trực tiếp cấu hình, khắc phục lỗi và giám sát nghiệm thu (T&C) cho các dự án yêu cầu độ chính xác cực cao như Trung tâm dữ liệu (Data Center), Nhà máy công nghệ và Sân bay quốc tế.</p>
                     
-                    <p>
-                        Với <strong>15 năm gắn bó</strong> cùng các hệ thống Chiller, HVAC và tự động hóa, tôi hiểu rõ "tính cách" của từng thiết bị dưới góc độ điều khiển. Tôi đã tham gia trực tiếp cấu hình, khắc phục lỗi và giám sát nghiệm thu cho các dự án yêu cầu độ chính xác cực cao như Trung tâm dữ liệu (Data Center), Nhà máy công nghệ và Sân bay quốc tế.
-                    </p>
+                    <div class="ex-highlight">
+                        <p>// BMS & T&C SPECIALIST</p>
+                    </div>
                     
                     <div class="expert-stats">
                         <div class="stat-item">
                             <div class="stat-num">10+ <span>Năm</span></div>
-                            <p>Kinh nghiệm thiết kế, triển khai & lập trình chuyên sâu hệ thống BMS của hãng Honeywell.</p>
+                            <p>Kinh nghiệm chuyên sâu BMS hãng Honeywell.</p>
                         </div>
                         <div class="stat-item">
                             <div class="stat-num">05+ <span>Năm</span></div>
-                            <p>Đảm nhiệm vai trò chuyên gia Testing & Commissioning (T&C) độc lập cho nhà thầu & CĐT.</p>
+                            <p>Vai trò chuyên gia T&C độc lập.</p>
                         </div>
                     </div>
                 </div>
+                
+                <div class="ex-img">
+                    <img src="Images/profile.jpg" alt="Chuyên gia Nam Hoàng">
+                    <div class="ex-role">Lead Engineer</div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- PROJECTS SECTION -->
-    <section id="projects" class="section-padding bg-light">
+    <!-- PROJECTS GALLERY (CLEAN) -->
+    <section id="projects" class="section-padding">
         <div class="container">
             <div class="section-header">
-                <h2>Dự Án Tiêu Biểu</h2>
-                <p>Dấu ấn chất lượng và độ tin cậy tại các tổ hợp công trình quy mô lớn.</p>
+                <div class="section-subtitle">Dự Án Tiêu Biểu</div>
+                <h2>Dấu ấn tại các <strong>Công trình lớn</strong>.</h2>
             </div>
             
-            <div class="project-grid">
-                <div class="project-item">
-                    <div class="project-img"><img src="Images/10.jpg" alt="Resort Hyatt"></div>
-                    <div class="project-info">
-                        <span class="p-cat">Nghỉ dưỡng 5 Sao</span>
-                        <h4>Resort Hyatt Đà Nẵng</h4>
-                        <div class="project-tags"><span>BMS</span> <span>HVAC Controls</span></div>
+            <div class="project-gallery">
+                <div class="pj-item">
+                    <div class="img-box"><img src="Images/10.jpg" alt="Resort Hyatt"></div>
+                    <div class="pj-meta">
+                        <span class="pj-cat">Nghỉ dưỡng</span>
+                        <span class="pj-tags">BMS, HVAC</span>
                     </div>
+                    <h4>Resort Hyatt Đà Nẵng</h4>
                 </div>
-                <div class="project-item">
-                    <div class="project-img"><img src="Images/11.jpg" alt="Landmark 81"></div>
-                    <div class="project-info">
-                        <span class="p-cat">Khách sạn & Thương mại</span>
-                        <h4>Landmark 81</h4>
-                        <div class="project-tags"><span>HVAC Controls</span> <span>Integration</span></div>
+                
+                <div class="pj-item">
+                    <div class="img-box"><img src="Images/11.jpg" alt="Landmark 81"></div>
+                    <div class="pj-meta">
+                        <span class="pj-cat">Khách sạn & TM</span>
+                        <span class="pj-tags">Integration</span>
                     </div>
+                    <h4>Landmark 81</h4>
                 </div>
-                <div class="project-item">
-                    <div class="project-img"><img src="Images/12.jpg" alt="Vietcombank Tower"></div>
-                    <div class="project-info">
-                        <span class="p-cat">Cao ốc Văn phòng Hạng A</span>
-                        <h4>VCB Tower</h4>
-                        <div class="project-tags"><span>BMS</span> <span>Lighting</span></div>
+                
+                <div class="pj-item">
+                    <div class="img-box"><img src="Images/12.jpg" alt="VCB Tower"></div>
+                    <div class="pj-meta">
+                        <span class="pj-cat">Cao ốc Văn phòng</span>
+                        <span class="pj-tags">BMS, Lighting</span>
                     </div>
+                    <h4>VCB Tower</h4>
                 </div>
-                <div class="project-item">
-                    <div class="project-img"><img src="Images/13.jpg" alt="Sân bay Phú Quốc"></div>
-                    <div class="project-info">
-                        <span class="p-cat">Hạ tầng Hàng không</span>
-                        <h4>Sân bay quốc tế Phú Quốc</h4>
-                        <div class="project-tags"><span>BMS</span> <span>HVAC</span></div>
+                
+                <div class="pj-item">
+                    <div class="img-box"><img src="Images/13.jpg" alt="Sân bay Phú Quốc"></div>
+                    <div class="pj-meta">
+                        <span class="pj-cat">Hàng không</span>
+                        <span class="pj-tags">SCADA</span>
                     </div>
+                    <h4>Sân bay quốc tế Phú Quốc</h4>
                 </div>
-                <div class="project-item">
-                    <div class="project-img"><img src="Images/14.jpg" alt="VNG DC"></div>
-                    <div class="project-info">
-                        <span class="p-cat">Hạ tầng Dữ liệu (Tier III)</span>
-                        <h4>VNG Data Center</h4>
-                        <div class="project-tags"><span>iBMS</span> <span>Precision Cooling</span></div>
+                
+                <div class="pj-item">
+                    <div class="img-box"><img src="Images/14.jpg" alt="VNG DC"></div>
+                    <div class="pj-meta">
+                        <span class="pj-cat">Trung tâm dữ liệu</span>
+                        <span class="pj-tags">iBMS, T&C</span>
                     </div>
+                    <h4>VNG Data Center</h4>
                 </div>
-                 <div class="project-item">
-                    <div class="project-img"><img src="Images/15.jpg" alt="Nhà máy Lego"></div>
-                    <div class="project-info">
-                        <span class="p-cat">Công nghiệp Công nghệ cao</span>
-                        <h4>Nhà máy Lego Việt Nam</h4>
-                        <div class="project-tags"><span>T&C</span> <span>HVAC Controls</span></div>
+                
+                <div class="pj-item">
+                    <div class="img-box"><img src="Images/15.jpg" alt="Nhà máy Lego"></div>
+                    <div class="pj-meta">
+                        <span class="pj-cat">Công nghiệp</span>
+                        <span class="pj-tags">T&C, Controls</span>
                     </div>
+                    <h4>Nhà máy Lego Việt Nam</h4>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
+    <!-- FOOTER (WHITE & SHARP) -->
     <footer class="footer" id="contact">
         <div class="container">
             <div class="footer-grid">
                 <div>
-                    <!-- TALLER LOGO FOR FOOTER -->
+                    <!-- LOGO SAME AS HEADER -->
                     <a href="#" class="logo-container" style="margin-bottom: 25px;">
                         <div class="logo-bars">
                             <div class="bar" style="height: 15px; background-color: #8bf0dc;"></div>
                             <div class="bar" style="height: 24px; background-color: var(--teal);"></div>
-                            <div class="bar" style="height: 34px; background-color: var(--white);"></div>
+                            <div class="bar" style="height: 34px; background-color: var(--navy);"></div>
                             <div class="bar" style="height: 44px; background-color: var(--yellow);"></div>
-                            <div class="bar" style="height: 27px; background-color: var(--white);"></div>
+                            <div class="bar" style="height: 27px; background-color: var(--navy);"></div>
                         </div>
                         <div class="logo-text">
-                            <div class="logo-title" style="color: var(--white);">NAM HOÀNG CONTROLS</div>
-                            <div class="logo-subtitle" style="color: #94a3b8;">BMS & T&C EXPERT</div>
+                            <div class="logo-title">NAM HOÀNG CONTROLS</div>
+                            <div class="logo-subtitle">BMS & T&C EXPERT</div>
                         </div>
                     </a>
-                    <p style="font-size: 14px; line-height: 1.8;">Đối tác tin cậy chuyên sâu cung cấp giải pháp, đào tạo và tư vấn độc lập hệ thống BMS & T&C Cơ điện.</p>
+                    <p style="font-size: 14px; line-height: 1.8; color: var(--text-muted);">Đối tác tin cậy chuyên sâu cung cấp giải pháp, đào tạo và tư vấn độc lập hệ thống BMS & T&C Cơ điện.</p>
                 </div>
                 <div>
                     <h4>Dịch Vụ</h4>
                     <ul>
-                        <li><a href="#details">Đào tạo BMS thực chiến</a></li>
-                        <li><a href="#details">Bảo trì hệ thống BMS</a></li>
-                        <li><a href="#details">Phần mềm Niagara N4</a></li>
-                        <li><a href="#details">Tư vấn T&C độc lập</a></li>
+                        <li><a href="#sv-training">Đào tạo BMS thực chiến</a></li>
+                        <li><a href="#sv-maintenance">Bảo trì hệ thống BMS</a></li>
+                        <li><a href="#sv-niagara">Phần mềm Niagara N4</a></li>
+                        <li><a href="#sv-tnc">Tư vấn T&C độc lập</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4>Tài Nguyên</h4>
                     <ul>
-                        <li><a href="#">Checklist Bảo trì</a></li>
-                        <li><a href="#">Tài liệu SOO mẫu</a></li>
-                        <li><a href="#">Handbook xử lý sự cố</a></li>
+                        <li><a href="#sv-docs">Checklist Bảo trì</a></li>
+                        <li><a href="#sv-docs">Tài liệu SOO mẫu</a></li>
+                        <li><a href="#sv-docs">Handbook xử lý sự cố</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4>Liên Hệ</h4>
-                    <ul class="contact-info">
-                        <li><i class="fa-solid fa-location-dot"></i><span>302 Phan Văn Trị, Q. Bình Thạnh, TP.HCM</span></li>
-                        <li><i class="fa-solid fa-phone"></i><span>0905 54 55 64</span></li>
-                        <li><i class="fa-solid fa-envelope"></i><span>support@namhoangcontrols.com</span></li>
-                        <li><i class="fa-solid fa-globe"></i><a href="https://www.namhoangcontrols.com" target="_blank">namhoangcontrols.com</a></li>
+                    <ul class="contact-list">
+                        <li><i class="fa-solid fa-location-dot"></i><span style="font-size: 14px; color: var(--text-muted);">302 Phan Văn Trị, Q. Bình Thạnh, TP.HCM</span></li>
+                        <li><i class="fa-solid fa-phone"></i><span style="font-size: 14px; color: var(--text-muted);">0905 54 55 64</span></li>
+                        <li><i class="fa-solid fa-envelope"></i><span style="font-size: 14px; color: var(--text-muted);">support@namhoangcontrols.com</span></li>
+                        <li><i class="fa-solid fa-globe"></i><a href="https://www.namhoangcontrols.com" target="_blank" style="font-size: 14px;">namhoangcontrols.com</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="footer-divider"></div>
             <div class="copyright">
                 <p>&copy; 2026 Nam Hoàng Controls. All rights reserved.</p>
+                <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 2px;">Building Automation Engineering</div>
             </div>
         </div>
     </footer>
