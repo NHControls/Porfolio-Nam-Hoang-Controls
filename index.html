@@ -239,10 +239,11 @@
         .tech-link:hover { color: var(--teal); }
 
         /* --- 8. EXPERT PROFILE (MINIMAL) --- */
-        .expert-wrap { display: grid; grid-template-columns: 1fr 2fr; gap: 60px; border-top: 1px solid var(--navy); padding-top: 60px; }
-        .ex-img { position: relative; }
-        .ex-img img { width: 100%; aspect-ratio: 3/4; object-fit: cover; filter: grayscale(20%); }
-        .ex-role { position: absolute; bottom: 20px; left: -20px; background: var(--navy); color: var(--white); padding: 15px 30px; font-size: 13px; text-transform: uppercase; letter-spacing: 2px; }
+        .expert-wrap { display: grid; grid-template-columns: 1fr 260px; gap: 60px; border-top: 1px solid var(--gray-line); padding-top: 60px; align-items: center; }
+        .ex-img { position: relative; text-align: center; }
+        .ex-img img { width: 100%; max-width: 260px; aspect-ratio: 1/1; object-fit: cover; border-radius: 50%; filter: grayscale(10%); border: 6px solid var(--white); box-shadow: var(--shadow-md); margin: 0 auto; transition: filter 0.3s ease; }
+        .ex-img img:hover { filter: grayscale(0%); }
+        .ex-role { position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%); background: var(--navy); color: var(--white); padding: 8px 24px; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; border-radius: 50px; border: 2px solid var(--white); white-space: nowrap; z-index: 2; font-weight: 500; }
         
         .ex-info h3 { font-size: 40px; font-weight: 300; margin-bottom: 30px; }
         .ex-info h3 strong { font-weight: 700; }
